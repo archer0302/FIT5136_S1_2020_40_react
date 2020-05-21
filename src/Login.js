@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import LoginForm from './LoginForm'
-import { Tabs, Tab, Form, Row, Col } from 'react-bootstrap'
+import { Tabs, Tab } from 'react-bootstrap'
 
 const LoginTabs = styled(Tabs).attrs({
 	defaultActiveKey: "Coordinator",
