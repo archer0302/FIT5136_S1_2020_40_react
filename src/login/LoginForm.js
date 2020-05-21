@@ -1,6 +1,5 @@
 import React from 'react';
-import styled from 'styled-components'
-import { Tabs, Tab, Form, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 
 class LoginForm extends React.Component {
 	render() {

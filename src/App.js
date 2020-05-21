@@ -1,11 +1,10 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginPage from './LoginPage'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Media from 'react-bootstrap/Media'
+import LoginPage from './login/LoginPage'
+import MissionList from './coordinator/MissionList'
+import {Media, Container} from 'react-bootstrap'
+import {Switch, Route, BrowserRouter} from 'react-router-dom'
 import styled from 'styled-components'
 
 const AppContainer = styled(Container).attrs({
@@ -44,12 +43,19 @@ class App extends React.Component {
         <AppHeader>
           <AppTitleLogo/>
           <AppTitle>
-            <AppTitleText>Initiate Second Chance Cooperation</AppTitleText>
+            <AppTitleText>Mission to Mars</AppTitleText>
           </AppTitle>
         </AppHeader>
-        <Row>
-          <LoginPage/>
-        </Row>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/coordinator">
+              <MissionList/>
+            </Route>
+            <Route path="/">
+              <LoginPage/>
+            </Route>
+          </Switch>
+        </BrowserRouter>
       </AppContainer>
     )
   }
