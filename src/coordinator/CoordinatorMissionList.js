@@ -2,7 +2,7 @@ import React from 'react';
 import {Table, Button} from 'react-bootstrap';
 import axios from 'axios';
 
-class MissionList extends React.Component {
+class CoordinatorMissionList extends React.Component {
 
   state = {
     missions: []
@@ -49,4 +49,4 @@ class MissionList extends React.Component {
 	}
 }
 
-export default MissionList;
+export default CoordinatorMissionList;
