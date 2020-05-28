@@ -12,7 +12,7 @@ class Login extends React.Component {
 		return (
 			<LoginTabs>
 				<Tab eventKey="Administrator" title="Administrator">
-					<LoginForm role={'admin'}/>
+					<LoginForm role={'administrator'}/>
 				</Tab>
 				<Tab eventKey="Coordinator" title="Coordinator">
 					<LoginForm role={'coordinator'}/>

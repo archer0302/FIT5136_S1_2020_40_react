@@ -5,8 +5,6 @@ import * as yup from 'yup';
 import { Form, Row, Col, Button } from 'react-bootstrap'
 
 
-
-
 const LoginForm = ({role}) => {
 	const [email, setEmail] = useState('');
 
