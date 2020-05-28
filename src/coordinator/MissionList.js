@@ -37,11 +37,12 @@ class MissionList extends React.Component {
                 <td>{mission.shuttleId}</td>
                 <td></td>
                 <td style={{ textAlign: 'right' }}>
-                  <Button style={{ margin: 10 }}>Edit</Button>
-                  <Button>Delete</Button>
+                  <Button size="sm" style={{ marginRight: 10 }}>Edit</Button>
+                  <Button size="sm" variant="danger">Delete</Button>
                 </td>
               </tr>
-            ) }
+            ) 
+          }
         </tbody>
 			</Table>
 		)

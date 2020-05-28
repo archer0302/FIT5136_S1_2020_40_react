@@ -4,18 +4,18 @@ import LoginForm from './LoginForm'
 import { Tabs, Tab } from 'react-bootstrap'
 
 const LoginTabs = styled(Tabs).attrs({
-	defaultActiveKey: "Coordinator",
+	defaultActiveKey: "Administrator",
 })``;
 
 class Login extends React.Component {
 	render() {
 		return (
 			<LoginTabs>
-				<Tab eventKey="Coordinator" title="Coordinator">
-					<LoginForm/>
-				</Tab>
 				<Tab eventKey="Administrator" title="Administrator">
-					<LoginForm/>
+					<LoginForm role={'admin'}/>
+				</Tab>
+				<Tab eventKey="Coordinator" title="Coordinator">
+					<LoginForm role={'coordinator'}/>
 				</Tab>
 			</LoginTabs>
 		)
