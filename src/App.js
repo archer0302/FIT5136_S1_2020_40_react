@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginPage from './login/LoginPage'
-import CoordinatorMissionList from './coordinator/CoordinatorMissionList'
-import {Media, Container} from 'react-bootstrap'
-import {Switch, Route, BrowserRouter} from 'react-router-dom'
-import styled from 'styled-components'
+import LoginPage from './login/LoginPage';
+import CoordinatorMissionList from './coordinator/CoordinatorMissionList';
+import {Media, Container} from 'react-bootstrap';
+import {Switch, Route, BrowserRouter, Router} from 'react-router-dom';
+import styled from 'styled-components';
+import CoordinatorRouter from './coordinator/CoordinatorRouter';
 
 const AppContainer = styled(Container).attrs({
   className: "container"
@@ -36,7 +37,7 @@ const AppTitleText = styled.h1.attrs({
   vertical-align: middle;
 `;
 
-function App() {
+const App = () => {
   return (
     <AppContainer>
       <AppHeader>
@@ -47,12 +48,8 @@ function App() {
       </AppHeader>
       <BrowserRouter>
         <Switch>
-          <Route path="/coordinator">
-            <CoordinatorMissionList/>
-          </Route>
-          <Route path="/">
-            <LoginPage/>
-          </Route>
+          <CoordinatorRouter path="/coordinator" component={CoordinatorMissionList}/>
+          <Route path="/" component={LoginPage}/>
         </Switch>
       </BrowserRouter>
     </AppContainer>
