@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from './static/logo192.png';
 import LoginPage from './login/LoginPage';
@@ -23,9 +22,6 @@ const AppHeader = styled(Media)
   max-height: 300px;
 `;
 
-const AppTitle = styled(Media.Body)
-``;
-
 const AppTitleText = styled.h1.attrs({
 })
 `
@@ -42,9 +38,7 @@ const App = () => {
       <BrowserRouter>
         <AppHeader>
           <img src={logo}/>
-          <AppTitle>
-            <AppTitleText>Mission to Mars</AppTitleText>
-          </AppTitle>
+          <AppTitleText>Mission to Mars</AppTitleText>
           <LogoutButton setUserName={setUserName}/>
           Hello, {userName}
         </AppHeader>
