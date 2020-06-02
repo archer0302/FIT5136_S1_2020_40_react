@@ -10,7 +10,7 @@ const Register =  () => {
                     <Form.Label>Username(Email)</Form.Label>
                     <Form.Control type="username" placeholder="Enter username" />
                 </Form.Group>
-                
+
                 <Form.Group as={Col} controlId="formGridPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" />
@@ -110,5 +110,4 @@ const Register =  () => {
 
     )
 }
-
 export default Register;
