@@ -1,10 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useHistory } from 'react-router';
 
-const LoginForm = ({role}) => {
+const LoginForm = ({role, setUserName}) => {
+	const history = useHistory();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	
@@ -25,10 +27,13 @@ const LoginForm = ({role}) => {
     onSubmit: values => {
       axios.post(`http://localhost:8080/${role}/login`, values)
 				.then(res => {
-					console.log(res);
+					window.localStorage.setItem('role', role);
+					window.localStorage.setItem('id', res.data.id);
+					setUserName(res.data.userName);
+					history.push(`/${role}/`);
 				})
 				.catch(function (error) {
-					console.log(error.response.data.message);
+					console.log(error);
 				});
 		},
 		validationSchema: schema
