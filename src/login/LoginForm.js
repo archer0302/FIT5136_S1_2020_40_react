@@ -69,7 +69,7 @@ const LoginForm = ({role, setUserName}) => {
 						/>
 					</Col>
 					{/* Column for error messages */}
-					<Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.email && formik.touched.email && formik.errors.email}</Col>
+					<Col md={{offset: 2}} style={{color: '#C95B64'}}>{formik.errors.email && formik.touched.email && formik.errors.email}</Col>
 				</Form.Group>
 				<Form.Group as={Row}>
 				<Form.Label column sm="2">Password</Form.Label>
@@ -82,11 +82,11 @@ const LoginForm = ({role, setUserName}) => {
 							value={formik.values.password}
 						/>
 					</Col>
-				<Col md={{offset: 2}} style={{color: 'red'}}>{formik.errors.password && formik.touched.password && formik.errors.password}</Col>
+				<Col md={{offset: 2}} style={{color: '#C95B64'}}>{formik.errors.password && formik.touched.password && formik.errors.password}</Col>
 				</Form.Group>
 				{/** submit button */}
 				<Button type="submit" variant="flat-primary">Login</Button>
-				{ role === "candidate" && <Button type="submit" onClick={goRegister}>Register</Button> }
+				{ role === "candidate" && <Button type="submit" onClick={goRegister} style={{marginLeft: '10px'}}>Register</Button> }
 			</StyledForm>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
