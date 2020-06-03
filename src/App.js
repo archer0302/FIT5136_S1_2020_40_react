@@ -1,11 +1,15 @@
-import React from 'react';
-import './App.css';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginPage from './login/LoginPage'
-import CoordinatorMissionList from './coordinator/CoordinatorMissionList'
-import {Media, Container} from 'react-bootstrap'
-import {Switch, Route, BrowserRouter} from 'react-router-dom'
-import styled from 'styled-components'
+import logo from './static/logo192.png';
+import LoginPage from './login/LoginPage';
+import { Media, Container } from 'react-bootstrap';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import styled from 'styled-components';
+import CoordinatorRouter from './coordinator/CoordinatorRouter';
+import CoordinatorMissionList from './coordinator/CoordinatorMissionList';
+import AdministratorRouter from './administrator/AdministratorRouter';
+import AdministratorMissionList from './administrator/AdministratorMissionList';
+import LogoutButton from './LogoutButton';
 
 const AppContainer = styled(Container).attrs({
   className: "container"
@@ -18,16 +22,6 @@ const AppHeader = styled(Media)
   max-height: 300px;
 `;
 
-const AppTitle = styled(Media.Body)
-``;
-
-const AppTitleLogo = styled.img.attrs({
-  src: "logo192.png"
-})`
-  height: 200px;
-  width: 200px;
-`;
-
 const AppTitleText = styled.h1.attrs({
 })
 `
@@ -36,23 +30,22 @@ const AppTitleText = styled.h1.attrs({
   vertical-align: middle;
 `;
 
-function App() {
+const App = () => {
+  const [userName, setUserName] = useState('');
+
   return (
     <AppContainer>
-      <AppHeader>
-        <AppTitleLogo/>
-        <AppTitle>
-          <AppTitleText>Mission to Mars</AppTitleText>
-        </AppTitle>
-      </AppHeader>
       <BrowserRouter>
+        <AppHeader>
+          <img src={logo}/>
+          <AppTitleText>Mission to Mars</AppTitleText>
+          <LogoutButton setUserName={setUserName}/>
+          Hello, {userName}
+        </AppHeader>
         <Switch>
-          <Route path="/coordinator">
-            <CoordinatorMissionList/>
-          </Route>
-          <Route path="/">
-            <LoginPage/>
-          </Route>
+          <CoordinatorRouter path="/coordinator" component={CoordinatorMissionList}/>
+          <AdministratorRouter path="/administrator" component={AdministratorMissionList}/>
+          <Route path="/" render={(props) => <LoginPage {...props} setUserName={setUserName}/>}/>
         </Switch>
       </BrowserRouter>
     </AppContainer>

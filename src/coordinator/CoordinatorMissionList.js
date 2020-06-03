@@ -1,22 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Table, Button} from 'react-bootstrap';
 import axios from 'axios';
 
-class CoordinatorMissionList extends React.Component {
+const CoordinatorMissionList = () => {
 
-  state = {
-    missions: []
-  }
+	const [missionList, setMissionList] = useState('');
+  
+  axios.get(`http://localhost:8080/mission/list`)
+    .then(res => {
+      const missions = res.data;
+      this.setState({ missions });
+    })
 
-  componentWillMount() {
-    axios.get(`http://localhost:8080/mission/list`)
-      .then(res => {
-        const missions = res.data;
-        this.setState({ missions });
-      })
-  }
-
-	render () {
 		return (
 			<Table>
         <thead>
@@ -46,7 +41,6 @@ class CoordinatorMissionList extends React.Component {
         </tbody>
 			</Table>
 		)
-	}
 }
 
 export default CoordinatorMissionList;

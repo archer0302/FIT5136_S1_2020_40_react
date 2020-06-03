@@ -1,25 +1,15 @@
 import React, { useState } from 'react';
+import { Form, Row, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { Formik } from 'formik';
+import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Form, Row, Col, Button } from 'react-bootstrap'
+import { useHistory } from 'react-router';
 
-
-const LoginForm = ({role}) => {
+const LoginForm = ({role, setUserName}) => {
+	const history = useHistory();
 	const [email, setEmail] = useState('');
-
 	const [password, setPassword] = useState('');
-
-	const login = () => {
-		axios.post(`http://localhost:8080/${role}/login`, {email, password})
-				.then(res => {
-					console.log(res);
-				})
-				.catch(function (error) {
-					console.log(error.response.data.message);
-				});
-	}
-
+	
 	const schema = yup.object({
 		email: yup.string()
 				.required()
@@ -28,64 +18,59 @@ const LoginForm = ({role}) => {
 				.required()
 	});
 
-
-	return (
-		<Formik
-			initialValues={{ email: '', password: '' }}
-			validationSchema={schema}
-      onSubmit={(values) => {
-        axios.post(`http://localhost:8080/${role}/login`, values)
+	// setup formik
+	const formik = useFormik({
+    initialValues: {
+			email: '',
+			password: ''
+    },
+    onSubmit: values => {
+      axios.post(`http://localhost:8080/${role}/login`, values)
 				.then(res => {
-					console.log(res);
+					window.localStorage.setItem('role', role);
+					window.localStorage.setItem('id', res.data.id);
+					setUserName(res.data.userName);
+					history.push(`/${role}/`);
 				})
 				.catch(function (error) {
-					console.log(error.response.data.message);
+					console.log(error);
 				});
-      }}
-    >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
-        /* and other goodies */
-      }) => (
-        <Form onSubmit={handleSubmit}>
-					<Form.Group as={Row}>
-						<Form.Label column sm="2">Email</Form.Label>
-						<Col sm="10">
-							<Form.Control
-								type="email"
-								name="email"
-								onChange={handleChange}
-								onBlur={handleBlur}
-								value={values.email}
-							/>
-						</Col>
-						<Col md={{offset: 2}}>{errors.email && touched.email && errors.email}</Col>
-					</Form.Group>
-					<Form.Group as={Row}>
-          <Form.Label column sm="2">Password</Form.Label>
-						<Col sm="10">
-							<Form.Control
-								type="password"
-								name="password"
-								onChange={handleChange}
-								onBlur={handleBlur}
-								value={values.password}
-							/>
-						</Col>
-          <Col md={{offset: 2}}>{errors.password && touched.password && errors.password}</Col>
-					</Form.Group>
-          <Button type="submit" disabled={isSubmitting}>
-            Login
-          </Button>
-        </Form>
-      )}
-    </Formik>
+		},
+		validationSchema: schema
+  });
+
+	return (
+		<Form onSubmit={formik.handleSubmit}>
+			<Form.Group as={Row}>
+				<Form.Label column sm="2">Email</Form.Label>
+				<Col sm="10">
+					<Form.Control
+						type="email"
+						name="email"
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.email}
+					/>
+				</Col>
+				<Col md={{offset: 2}}>{formik.errors.email && formik.touched.email && formik.errors.email}</Col>
+			</Form.Group>
+			<Form.Group as={Row}>
+			<Form.Label column sm="2">Password</Form.Label>
+				<Col sm="10">
+					<Form.Control
+						type="password"
+						name="password"
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.password}
+					/>
+				</Col>
+			<Col md={{offset: 2}}>{formik.errors.password && formik.touched.password && formik.errors.password}</Col>
+			</Form.Group>
+			<Button type="submit">
+				Login
+			</Button>
+		</Form>
 	)
 }
 
