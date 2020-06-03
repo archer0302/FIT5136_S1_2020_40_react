@@ -19,6 +19,9 @@ const LoginPage = ({ setUserName }) => {
 					<Tab eventKey="Coordinator" title="Coordinator">
 						<LoginForm role={'coordinator'} setUserName={setUserName}/>
 					</Tab>
+					<Tab eventKey="Candidate" title="Candidate">
+						<LoginForm role={'candidate'} setUserName={setUserName}/>
+					</Tab>
 				</LoginTabs>
 			</Col>
 		</Row>

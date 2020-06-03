@@ -46,6 +46,7 @@ const LoginForm = ({role, setUserName}) => {
 
 	/** component body */
 	return (
+
 		<>
 			<Form onSubmit={formik.handleSubmit}>
 				<Form.Group as={Row}>
@@ -90,6 +91,40 @@ const LoginForm = ({role, setUserName}) => {
           </Button>
         </Modal.Footer>
 			</Modal>
+
+		<Form onSubmit={formik.handleSubmit}>
+			<Form.Group as={Row}>
+				<Form.Label column sm="2">Email</Form.Label>
+				{/* Column */}
+				<Col sm="10">
+					<Form.Control
+						type="email"
+						name="email"
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.email}
+					/>
+				</Col>
+				{/* Column for error messages */}
+				<Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.email && formik.touched.email && formik.errors.email}</Col>
+			</Form.Group>
+			<Form.Group as={Row}>
+			<Form.Label column sm="2">Password</Form.Label>
+				<Col sm="10">
+					<Form.Control
+						type="password"
+						name="password"
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.password}
+					/>
+				</Col>
+			<Col md={{offset: 2}} style={{color: 'red'}}>{formik.errors.password && formik.touched.password && formik.errors.password}</Col>
+			</Form.Group>
+			{/** submit button */}
+			<Button type="submit">Login</Button>
+			<Button type="submit">Register</Button>
+		</Form>
 		</>
 	)
 }

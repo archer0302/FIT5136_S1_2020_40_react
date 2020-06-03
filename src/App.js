@@ -41,8 +41,11 @@ const App = () => {
         <AppHeader>
           <img src={logo}/>
           <AppTitleText>Mission to Mars</AppTitleText>
-          <LogoutButton setUserName={setUserName}/>
-          Hello, {userName}
+          <div class="col-4"> </div>
+          <div class="col-2">
+          <LogoutButton setUserName={setUserName} />
+          <span>Hello, {userName}</span>
+          </div>
         </AppHeader>
         <Switch>
           <CoordinatorRouter path="/coordinator" component={CoordinatorMissionList}/>
