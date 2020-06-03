@@ -34,4 +34,6 @@ code {
 .nav-tabs .nav-link {
   color: #F4EEEB;
   border-color: transparent;
+  flex-grow: 1;
+  text-align: center;
 }

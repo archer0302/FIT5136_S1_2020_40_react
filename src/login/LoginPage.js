@@ -8,6 +8,7 @@ const LoginTabs = styled(Tabs).attrs({
 })`
 	border-radius: 4px;
 	background: #9c888e;
+	flex-direction: row;
 `;
 
 const LoginContent = styled(Col)`
