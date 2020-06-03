@@ -3,7 +3,7 @@ import { Form, Row, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 const LoginForm = ({role, setUserName}) => {
 	const history = useHistory();
