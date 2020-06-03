@@ -29,11 +29,34 @@ const CandidateInformation = () => {
                 <Col sm={4}>{candidate.address}</Col>
             </Row>
             <Row>
-                <Col sm={1} style={{fontWeight: 'bold'}}>Name</Col>
-                <Col sm={4}>{candidate.name}</Col>
-                <Col sm={1} style={{fontWeight: 'bold'}}>Address</Col>
-                <Col sm={4}>{candidate.address}</Col>
+                <Col sm={2} style={{fontWeight: 'bold'}}>Date of Birth</Col>
+                <Col sm={4}>{candidate.dob}</Col>
+                <Col sm={1} style={{fontWeight: 'bold'}}>Nationality</Col>
+                <Col sm={4}>{candidate.nationality}</Col>
             </Row>
+            <Row>
+                <Col sm={2} style={{fontWeight: 'bold'}}>Identification Number</Col>
+                <Col sm={4}>{candidate.identificationNo}</Col>
+                <Col sm={1} style={{fontWeight: 'bold'}}>Gender</Col>
+                <Col sm={4}>{candidate.gender}</Col>
+            </Row>
+            <Row>
+                <Col sm={1} style={{fontWeight: 'bold'}}>Allergies</Col>
+                <Col sm={4}>{candidate.allergies}</Col>
+                <Col sm={2} style={{fontWeight: 'bold'}}>Food Preferences</Col>
+                <Col sm={4}>{candidate.foodPreferences}</Col>
+            </Row>
+            <Row>
+                <Col sm={1} style={{fontWeight: 'bold'}}>Occupation</Col>
+                <Col sm={4}>{candidate.occupation}</Col>
+                <Col sm={2} style={{fontWeight: 'bold'}}>Computer Skills</Col>
+                <Col sm={4}>{candidate.computerSkills}</Col>
+            </Row>
+            <Row>
+                <Col sm={2} style={{fontWeight: 'bold'}}>Languages Spoken</Col>
+                <Col sm={4}>{candidate.languages}</Col>
+            </Row>
+
         </div>
     )
 }
