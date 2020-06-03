@@ -23,7 +23,15 @@ const Register =  () => {
     const [languages, setLanguages] = useState('');
     
 	/** yup validation schema */ 
-	const schema = yup.object({ });
+	const schema = yup.object({
+        email: yup.string()
+				.required()
+				.email('Invalid email'),
+		password: yup.string()
+                .required(),
+        name: yup.string()
+				.required()
+    });
 
     /** setup formik */
 	const formik = useFormik({
@@ -44,28 +52,26 @@ const Register =  () => {
             allergies:'',
             occupation:'',
             qualifications:'',
-
-
-
-
-
         },
         /** actions when you click submit button */
         onSubmit: values => {
+            console.log('submit');
+            console.log(values);
             axios.post(`http://localhost:8080/candidate/register`, values)
-                    .then(res => {
-                        // history.push(`/`);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                .then(res => {
+                    // if success then do...
+                })
+                .catch(function (error) {
+                    // if error (http status not 200) then do...
+                    console.log(error);
+                });
             },
         /** validation schema */
         validationSchema: schema
       });
 
     return(
-        <Form>
+        <Form onSubmit={formik.handleSubmit}>
             <Form.Row>
                 <Form.Group as={Col} controlId="formGridUsername">
                     <Form.Label>Username(Email)</Form.Label>
