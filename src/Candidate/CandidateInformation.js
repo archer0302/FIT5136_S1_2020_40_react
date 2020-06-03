@@ -28,6 +28,12 @@ const CandidateInformation = () => {
                 <Col sm={1} style={{fontWeight: 'bold'}}>Address</Col>
                 <Col sm={4}>{candidate.address}</Col>
             </Row>
+            <Row>
+                <Col sm={1} style={{fontWeight: 'bold'}}>Name</Col>
+                <Col sm={4}>{candidate.name}</Col>
+                <Col sm={1} style={{fontWeight: 'bold'}}>Address</Col>
+                <Col sm={4}>{candidate.address}</Col>
+            </Row>
         </div>
     )
 }

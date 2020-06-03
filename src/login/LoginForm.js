@@ -79,7 +79,8 @@ const LoginForm = ({role, setUserName}) => {
 				</Form.Group>
 				{/** submit button */}
 				<Button type="submit">Login</Button>
-				{ role === "candidate" && <Button type="submit" onClick={goRegister}>Register</Button> }
+				<span>                </span>
+				{ role === "candidate" && <Button type="submit" onClick={goRegister}> Register</Button> }
 			</Form>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
