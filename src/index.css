@@ -11,3 +11,27 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.btn-flat-primary {
+	background-color: #66a96d;
+	color: #F4EEEB;
+}
+
+.btn-flat-primary:hover {
+	color: #F4EEEB;
+}
+
+.nav-tabs .nav-link.active {
+  color: #5C3D47;
+  background-color: #F4EEEB;
+  border-color: transparent;
+}
+
+.nav-tabs .nav-link:hover {
+  border-color: transparent;
+}
+
+.nav-tabs .nav-link {
+  color: #F4EEEB;
+  border-color: transparent;
+}

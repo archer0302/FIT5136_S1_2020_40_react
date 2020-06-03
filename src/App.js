@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import logo from './static/logo192.png';
+import logo from './static/icon.png';
 import LoginPage from './login/LoginPage';
 import { Media, Container } from 'react-bootstrap';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
@@ -15,47 +14,52 @@ import Register from './Register/Register';
 
 const AppContainer = styled(Container).attrs({
   className: "container"
-})``;
+})`
+  background-color: #5C3D47;
+  color: #F4EEEB;
+`;
 
-const AppHeader = styled(Media)
-`
+const AppHeader = styled(Media)`
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
   min-height: 200px;
   height: 200px;
   max-height: 300px;
+  align-items: center;
 `;
 
-const AppTitleText = styled.h1.attrs({
-})
-`
-  margin: 10px;
-  line-height: 200px;
-  vertical-align: middle;
-`;
+const AppBody = styled.div.attrs
 
 const App = () => {
   const [userName, setUserName] = useState('');
 
   return (
-    <AppContainer>
-      <BrowserRouter>
-        <AppHeader>
-          <img src={logo}/>
-          <AppTitleText>Mission to Mars</AppTitleText>
-          <div class="col-4"> </div>
-          <div class="col-2">
-          <LogoutButton setUserName={setUserName} />
-          <span>Hello, {userName}</span>
-          </div>
-        </AppHeader>
-        <Switch>
-          <CoordinatorRouter path="/coordinator" component={CoordinatorMissionList}/>
-          <AdministratorRouter path="/administrator" component={AdministratorMissionList}/>
-          <Route path="/register" render={(props) => <Register {...props}/>}/>
-          <Route path="/candidate" render={(props) => <CandidateInformation {...props}/>}/>
-          <Route path="/" render={(props) => <LoginPage {...props} setUserName={setUserName}/>}/>
-        </Switch>
-      </BrowserRouter>
-    </AppContainer>
+    <div style={{backgroundColor: '#5C3D47', minHeight: '1080px'}} >
+      <AppContainer>
+        <BrowserRouter>
+          <AppHeader>
+              <img src={logo} width={100} height={100}/>
+              <h1>Mission to Mars</h1>
+          </AppHeader>
+          {
+            window.localStorage.getItem("id") && (
+              <div class="col-2">
+                <LogoutButton setUserName={setUserName} />
+                <span>Hello, {userName}</span>
+              </div>
+            )
+          }
+          <Switch>
+            <CoordinatorRouter path="/coordinator" component={CoordinatorMissionList}/>
+            <AdministratorRouter path="/administrator" component={AdministratorMissionList}/>
+            <Route path="/register" render={(props) => <Register {...props}/>}/>
+            <Route path="/candidate" render={(props) => <CandidateInformation {...props}/>}/>
+            <Route path="/" render={(props) => <LoginPage {...props} setUserName={setUserName}/>}/>
+          </Switch>
+        </BrowserRouter>
+      </AppContainer>
+    </div>
   )
 }
 

@@ -4,6 +4,13 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components'
+
+
+const StyledForm = styled(Form)`
+	color: #5C3D47;
+	padding: 30px;
+`;
 
 const LoginForm = ({role, setUserName}) => {
 	const history = useHistory();
@@ -48,7 +55,7 @@ const LoginForm = ({role, setUserName}) => {
 	/** component body */
 	return (
 		<>
-			<Form onSubmit={formik.handleSubmit}>
+			<StyledForm onSubmit={formik.handleSubmit} style={{}}>
 				<Form.Group as={Row}>
 					<Form.Label column sm="2">Email</Form.Label>
 					{/* Column */}
@@ -78,9 +85,9 @@ const LoginForm = ({role, setUserName}) => {
 				<Col md={{offset: 2}} style={{color: 'red'}}>{formik.errors.password && formik.touched.password && formik.errors.password}</Col>
 				</Form.Group>
 				{/** submit button */}
-				<Button type="submit">Login</Button>
+				<Button type="submit" variant="flat-primary">Login</Button>
 				{ role === "candidate" && <Button type="submit" onClick={goRegister}>Register</Button> }
-			</Form>
+			</StyledForm>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
           <Modal.Title>Login Fail</Modal.Title>
