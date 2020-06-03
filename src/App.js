@@ -10,6 +10,7 @@ import CoordinatorMissionList from './coordinator/CoordinatorMissionList';
 import AdministratorRouter from './administrator/AdministratorRouter';
 import AdministratorMissionList from './administrator/AdministratorMissionList';
 import LogoutButton from './LogoutButton';
+import Register from './Register/Register';
 
 const AppContainer = styled(Container).attrs({
   className: "container"
@@ -45,6 +46,7 @@ const App = () => {
         <Switch>
           <CoordinatorRouter path="/coordinator" component={CoordinatorMissionList}/>
           <AdministratorRouter path="/administrator" component={AdministratorMissionList}/>
+          <Route path="/register" render={() => <Register/>}/>
           <Route path="/" render={(props) => <LoginPage {...props} setUserName={setUserName}/>}/>
         </Switch>
       </BrowserRouter>

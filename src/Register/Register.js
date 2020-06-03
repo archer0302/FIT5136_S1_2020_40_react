@@ -1,14 +1,56 @@
-import React from 'react';
-import { Form, Row, Col } from 'react-bootstrap'
+import React, { useState } from 'react';
+import { Form, Row, Col, Button } from 'react-bootstrap'
+import { useFormik } from 'formik';
+import axios from 'axios';
+import * as yup from 'yup';
 
 const Register =  () => {
+
+    const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+    const [address, setAddress] = useState('');
+    
+	/** yup validation schema */ 
+	const schema = yup.object({ });
+
+    /** setup formik */
+	const formik = useFormik({
+        /** init value */
+        initialValues: {
+            email: '',
+            password: '',
+            address: ''
+        },
+        /** actions when you click submit button */
+        onSubmit: values => {
+            axios.post(`http://localhost:8080/candidate/register`, values)
+                    .then(res => {
+                        // history.push(`/`);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+        /** validation schema */
+        validationSchema: schema
+      });
 
     return(
         <Form>
             <Form.Row>
                 <Form.Group as={Col} controlId="formGridUsername">
                     <Form.Label>Username(Email)</Form.Label>
-                    <Form.Control  placeholder="Enter username" />
+                    {/** formik controlled column */}
+                    <Form.Control
+						type="email"
+                        name="email"
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+                        value={formik.values.email}
+                        placeholder="Enter username"
+					/>
+                    {/* Column for error messages */}
+                    <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.email && formik.touched.email && formik.errors.email}</Col>
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridPassword">
@@ -89,6 +131,7 @@ const Register =  () => {
                 </Form.Group>
             </Form.Row>
 
+            {/** change to text input */}
             <Form.Group controlId="LanguageSpokenSelect">
                 <Form.Label>Languages Spoken</Form.Label>
                 <Form.Control name="Languages Spoken" as="select" multiple>
@@ -99,6 +142,8 @@ const Register =  () => {
                     <option>Japanese</option>
                 </Form.Control>
             </Form.Group>
+            {/** submit button */}
+			<Button type="submit">Register</Button>
         </Form>
 
     )
