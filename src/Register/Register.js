@@ -5,22 +5,6 @@ import axios from 'axios';
 import * as yup from 'yup';
 
 const Register =  () => {
-
-    const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-    const [address, setAddress] = useState('');
-    const [name, setName] = useState('');
-    const [dob, setDob] = useState('');
-    const [nationality, setNtionality] = useState('');
-    const [identificationNo, setIdentificationNo] = useState('');
-    const [gender, setGender] = useState('');
-    const [allergies, setAllergies] = useState('');
-    const [foodPreferences, setFoodPreferences] = useState('');
-    const [qualifications, setQualifications] = useState('');
-    const [workExperience, setWorkExperience] = useState('');
-    const [occupation, setOccupation] = useState('');
-    const [computerSkills, setComputerSkills] = useState('');
-    const [languages, setLanguages] = useState('');
     
 	/** yup validation schema */ 
 	const schema = yup.object({
