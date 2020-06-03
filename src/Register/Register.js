@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form,Col, Button } from 'react-bootstrap'
+import { Form,Col,Row,Button } from 'react-bootstrap'
 import { useFormik } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
@@ -117,7 +117,7 @@ const Register =  () => {
             </Form.Group>
 
             <Form.Group controlId="formGridName">
-                <Form.Label>Address</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control
                     //type="name"
                     name="name"
