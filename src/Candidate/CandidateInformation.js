@@ -30,15 +30,15 @@ const CandidateInformation = () => {
             </Row>
             <Row>
                 <Col sm={2} style={{fontWeight: 'bold'}}>Date of Birth</Col>
-                <Col sm={4}>{candidate.dob}</Col>
+                <Col sm={3}>{candidate.dob}</Col>
                 <Col sm={1} style={{fontWeight: 'bold'}}>Nationality</Col>
                 <Col sm={4}>{candidate.nationality}</Col>
             </Row>
             <Row>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Identification Number</Col>
-                <Col sm={4}>{candidate.identificationNo}</Col>
+                <Col sm={3} style={{fontWeight: 'bold'}}>Identification Number</Col>
+                <Col sm={2}>{candidate.identificationNo}</Col>
                 <Col sm={1} style={{fontWeight: 'bold'}}>Gender</Col>
-                <Col sm={4}>{candidate.gender}</Col>
+                <Col sm={3}>{candidate.gender}</Col>
             </Row>
             <Row>
                 <Col sm={1} style={{fontWeight: 'bold'}}>Allergies</Col>
