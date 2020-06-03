@@ -10,6 +10,7 @@ const LoginForm = ({role, setUserName}) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	
+	/** yup validation schema */ 
 	const schema = yup.object({
 		email: yup.string()
 				.required()
@@ -18,7 +19,7 @@ const LoginForm = ({role, setUserName}) => {
 				.required()
 	});
 
-	// setup formik
+	/** setup formik */
 	const formik = useFormik({
     initialValues: {
 			email: '',
@@ -39,10 +40,12 @@ const LoginForm = ({role, setUserName}) => {
 		validationSchema: schema
   });
 
+	/** component body */
 	return (
 		<Form onSubmit={formik.handleSubmit}>
 			<Form.Group as={Row}>
 				<Form.Label column sm="2">Email</Form.Label>
+				{/* Column */}
 				<Col sm="10">
 					<Form.Control
 						type="email"
@@ -52,7 +55,8 @@ const LoginForm = ({role, setUserName}) => {
 						value={formik.values.email}
 					/>
 				</Col>
-				<Col md={{offset: 2}}>{formik.errors.email && formik.touched.email && formik.errors.email}</Col>
+				{/* Column for error messages */}
+				<Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.email && formik.touched.email && formik.errors.email}</Col>
 			</Form.Group>
 			<Form.Group as={Row}>
 			<Form.Label column sm="2">Password</Form.Label>
@@ -65,11 +69,10 @@ const LoginForm = ({role, setUserName}) => {
 						value={formik.values.password}
 					/>
 				</Col>
-			<Col md={{offset: 2}}>{formik.errors.password && formik.touched.password && formik.errors.password}</Col>
+			<Col md={{offset: 2}} style={{color: 'red'}}>{formik.errors.password && formik.touched.password && formik.errors.password}</Col>
 			</Form.Group>
-			<Button type="submit">
-				Login
-			</Button>
+			{/** submit button */}
+			<Button type="submit">Login</Button>
 		</Form>
 	)
 }
