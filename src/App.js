@@ -9,6 +9,7 @@ import CoordinatorRouter from './coordinator/CoordinatorRouter';
 import CoordinatorMissionList from './coordinator/CoordinatorMissionList';
 import AdministratorRouter from './administrator/AdministratorRouter';
 import AdministratorMissionList from './administrator/AdministratorMissionList';
+import CandidateInformation from './Candidate/CandidateInformation';
 import LogoutButton from './LogoutButton';
 import Register from './Register/Register';
 
@@ -47,6 +48,7 @@ const App = () => {
           <CoordinatorRouter path="/coordinator" component={CoordinatorMissionList}/>
           <AdministratorRouter path="/administrator" component={AdministratorMissionList}/>
           <Route path="/register" render={(props) => <Register {...props}/>}/>
+          <Route path="/candidate" render={(props) => <CandidateInformation {...props}/>}/>
           <Route path="/" render={(props) => <LoginPage {...props} setUserName={setUserName}/>}/>
         </Switch>
       </BrowserRouter>
