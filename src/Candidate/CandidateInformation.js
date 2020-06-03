@@ -1,52 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import {Table, Button} from 'react-bootstrap';
+import {Row, Col} from 'react-bootstrap';
 import axios from 'axios';
 
 const CandidateInformation = () => {
-    const candidateId = window.localStorage.getItem("id");
+    // const candidateId = window.localStorage.getItem("id");
+    const candidateId = 2204;
 
-    const [missionList, setMissionList] = useState([]);
+    const [candidate, setCandidate] = useState({});
 
     useEffect(() =>  {
         console.log(candidateId);
         if (candidateId) {
             const fetchData = async () => {
                 const response = await axios.get(`http://localhost:8080/candidate/${candidateId}`);
-                setMissionList(response.data);
+                console.log(response.data);
+                setCandidate(response.data);
             }
             fetchData();
         }
     }, []);
 
     return (
-        <Table>
-            <thead>
-            <tr style={{ textAlign: 'center' }}>
-                <th></th>
-                <th>Mission name</th>
-                <th>Shuttle</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            { missionList.map(
-                mission =>
-                    <tr>
-                        <td>{mission.id}</td>
-                        <td>{mission.missionName}</td>
-                        <td>{mission.shuttleId}</td>
-                        <td></td>
-                        <td style={{ textAlign: 'right' }}>
-                            <Button size="sm" style={{ marginRight: 10 }}>Edit</Button>
-                            <Button size="sm" variant="danger">Delete</Button>
-                        </td>
-                    </tr>
-            )
-            }
-            </tbody>
-        </Table>
+        <div>
+            <Row>
+                <Col sm={1} style={{fontWeight: 'bold'}}>Name</Col>
+                <Col sm={4}>{candidate.name}</Col>
+                <Col sm={1} style={{fontWeight: 'bold'}}>Address</Col>
+                <Col sm={4}>{candidate.address}</Col>
+            </Row>
+        </div>
     )
 }
 
-export default CoordinatorMissionList;
+export default CandidateInformation;
