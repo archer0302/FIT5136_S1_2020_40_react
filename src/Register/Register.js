@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Form, Row, Col, Button } from 'react-bootstrap'
+import { Form,Col, Button } from 'react-bootstrap'
 import { useFormik } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 
 const Register =  () => {
+<<<<<<< Updated upstream
 
     const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
