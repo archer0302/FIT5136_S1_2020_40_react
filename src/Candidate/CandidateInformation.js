@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import {Row, Col} from 'react-bootstrap';
-import axios from 'axios';
+import React, { useState, useEffect } from './node_modules/react';
+import {Row, Col} from './node_modules/react-bootstrap';
+import axios from './node_modules/axios';
 
 const CandidateInformation = () => {
     // const candidateId = window.localStorage.getItem("id");

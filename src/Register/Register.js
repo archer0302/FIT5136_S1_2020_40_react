@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Form, Col, Button, Modal } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
-import { useFormik } from 'formik';
-import axios from 'axios';
-import * as yup from 'yup';
+import React, { useState } from './node_modules/react';
+import { Form, Col, Button, Modal } from './node_modules/react-bootstrap';
+import { useHistory } from './node_modules/react-router-dom';
+import { useFormik } from './node_modules/formik';
+import axios from './node_modules/axios';
+import * as yup from './node_modules/yup';
 
 const Register =  () => {
     const history = useHistory();

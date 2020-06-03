@@ -8,9 +8,9 @@ import CoordinatorRouter from './coordinator/CoordinatorRouter';
 import CoordinatorMissionList from './coordinator/CoordinatorMissionList';
 import AdministratorRouter from './administrator/AdministratorRouter';
 import AdministratorMissionList from './administrator/AdministratorMissionList';
-import CandidateInformation from './Candidate/CandidateInformation';
+import CandidateInformation from './candidate/CandidateInformation';
 import LogoutButton from './LogoutButton';
-import Register from './Register/Register';
+import Register from './register/Register';
 
 const AppContainer = styled(Container).attrs({
   className: "container"
