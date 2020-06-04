@@ -59,6 +59,7 @@ const App = () => {
             <Route path="/register" render={(props) => <Register {...props} setUserName={setUserName}/>}/>
             <Route path="/candidate" render={(props) => <CandidateInformation {...props}/>}/>
             <Route path="/mission/new" render={(props) => <NewMission {...props}/>}/>
+            <Route path="/mission/view" render={(props) => <NewMission {...props}/>}/>
             <Route path="/" render={(props) => <LoginPage {...props} setUserName={setUserName}/>}/>
           </Switch>
         </BrowserRouter>
