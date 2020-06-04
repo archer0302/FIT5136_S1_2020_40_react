@@ -11,6 +11,7 @@ import LogoutButton from './LogoutButton';
 import Register from './register/Register';
 import NewMission from './NewMission';
 import MissionList from './mission/MissionList';
+import CoordinatorPage from './coordinator/CoordinatorPage';
 
 const AppContainer = styled(Container).attrs({
   className: "container"
@@ -53,6 +54,7 @@ const App = () => {
             )
           }
           <Switch>
+            <Route path="/test" render={(props) => <CoordinatorPage {...props} />}/>
             <CoordinatorRouter path="/coordinator" component={MissionList}/>
             <AdministratorRouter path="/administrator" component={MissionList}/>
             <Route path="/register" render={(props) => <Register {...props} setUserName={setUserName}/>}/>
