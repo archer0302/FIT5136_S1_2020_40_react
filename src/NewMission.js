@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 
-const Register =  ({ setUserName }) => {
+const NewMission =  ({ setUserName }) => {
     const history = useHistory();
 
     /** yup validation schema */
@@ -23,21 +23,19 @@ const Register =  ({ setUserName }) => {
     const formik = useFormik({
         /** init value */
         initialValues: {
-            email: '',
-            password: '',
-            address: '',
-            name:'',
-            dob:'',
-            nationality:'',
-            gender:'',
-            identificationNo:'',
-            foodPreferences:'',
-            workExperience:'',
-            computerSkills:'',
-            languages:'',
-            allergies:'',
-            occupation:'',
-            qualifications:'',
+            missionName: '',
+            missionDescription: '',
+            launchDate: '',
+            countryOfOrigin:'',
+            countryAllowed:'',
+            duration:'',
+            ageRange:'',
+            cargoRequirement:'',
+            cargoType:'',
+            cargoAvailable:'',
+            destination:'',
+            shuttleId:'',
+            coordinatorId:'',
         },
         /** actions when you click submit button */
         onSubmit: values => {
@@ -60,221 +58,186 @@ const Register =  ({ setUserName }) => {
     return(
         <>
             <Form onSubmit={formik.handleSubmit}>
-                <Form.Row>
-                    <Form.Group as={Col} controlId="formGridUsername">
-                        <Form.Label>Username(Email)</Form.Label>
+                    <Form.Group controlId="formGridMissionName">
+                        <Form.Label>Mission Name</Form.Label>
                         {/** formik controlled column */}
                         <Form.Control
                             //type="email"
-                            name="email"
+                            name="missionName"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.email}
-                            placeholder="Enter username"
+                            value={formik.values.missionName}
+                            placeholder="Enter mission name"
                         />
                         {/* Column for error messages */}
                         <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.email && formik.touched.email && formik.errors.email}</Col>
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="formGridPassword">
-                        <Form.Label>Password</Form.Label>
+                    <Form.Group controlId="formGridMissionDescription">
+                        <Form.Label>Mission Description</Form.Label>
                         <Form.Control
-                            type="password"
-                            name="password"
+                            name="missionDescription"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.password}
-                            placeholder="Enter password"
+                            value={formik.values.missionDescription}
+                            placeholder="Enter description of the mission"
                         />
                         <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.password && formik.touched.password && formik.errors.password}</Col>
                     </Form.Group>
-                </Form.Row>
 
-                <Form.Group controlId="formGridAddress">
-                    <Form.Label>Address</Form.Label>
+                <Form.Group controlId="formGridLaunchDate">
+                    <Form.Label>Launch Date</Form.Label>
                     <Form.Control
-                        //type="address"
-                        name="address"
+                        //type="launchDate"
+                        name="launchDate"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.address}
-                        placeholder="Enter your address"
+                        value={formik.values.launchDate}
+                        placeholder="Enter the launch date"
                     />
                     <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.address && formik.touched.address && formik.errors.address}</Col>
-
                 </Form.Group>
 
-                <Form.Group controlId="formGridName">
-                    <Form.Label>Name</Form.Label>
+                <Form.Group controlId="formGridCountryOfOrigin">
+                    <Form.Label>Country Of Origin</Form.Label>
                     <Form.Control
-                        //type="name"
-                        name="name"
+                        //type="countryOfOrigin"
+                        name="countryOfOrigin"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.name}
-                        placeholder="Enter username"
+                        value={formik.values.countryOfOrigin}
+                        placeholder="Enter the origin of country"
                     />
                     <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.name && formik.touched.name && formik.errors.name}</Col>
                 </Form.Group>
 
-                <Form.Group controlId="formGridDob">
-                    <Form.Label>Address</Form.Label>
+                <Form.Group controlId="formGridCountryAllowed">
+                    <Form.Label>Country Allowed</Form.Label>
                     <Form.Control
-                        //type="name"
-                        name="dob"
+                        //type="countryAllowed"
+                        name="countryAllowed"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.dob}
-                        placeholder="Enter your date of birth with format 'xx/xx/xxxx'"
+                        value={formik.values.countryAllowed}
+                        placeholder="Enter countries are allowed"
                     />
                     <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.dob && formik.touched.dob && formik.errors.dob}</Col>
                 </Form.Group>
 
                 <Form.Row>
-                    <Form.Group controlId="select your nationality">
-                        <Form.Label>Nationality</Form.Label>
+                    <Form.Group as={Col} controlId="formGridDuration">
+                        <Form.Label>Duration</Form.Label>
                         <Form.Control
-                            //type="name"
-                            name="nationality"
+                            //type="duration"
+                            name="duration"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.nationality}
-                            as="select">
-                            <option>Australian</option>
-                            <option>Chinese</option>
-                            <option>England</option>
-                            <option>American</option>
-                            <option>French</option>
-                        </Form.Control>
+                            value={formik.values.duration}
+                            placeholder="Enter the duration"
+                        />
+                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</Col>
                     </Form.Group>
 
-                    <Form.Group controlId="select your gender">
-                        <Form.Label>Gender</Form.Label>
+                    <Form.Group as={Col} controlId="formGridAgeRange">
+                        <Form.Label>Age Range</Form.Label>
                         <Form.Control
-                            //type="name"
-                            name="gender"
+                            //type="ageRange"
+                            name="ageRange"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.gender}
-                            as="select">
-                            <option>Male</option>
-                            <option>Female</option>
-                        </Form.Control>
+                            value={formik.values.ageRange}
+                            placeholder="Enter the age range of candidates"
+                        />
+                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</Col>
                     </Form.Group>
                 </Form.Row>
 
                 <Form.Row>
-                    <Form.Group as={Col} controlId="formGridAllergies">
-                        <Form.Label>Allergies</Form.Label>
+                    <Form.Group as={Col} controlId="formGridCargoRequirement">
+                        <Form.Label>Cargo Requirement</Form.Label>
                         <Form.Control
-                            //type="email"
-                            name="allergies"
+                            //type="cargoRequirement"
+                            name="cargoRequirement"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.allergies}
-                            placeholder="Enter your allergies"
+                            value={formik.values.cargoRequirement}
+                            placeholder="Enter cargo requirements"
                         />
                         <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.allergies && formik.touched.allergies && formik.errors.allergies}</Col>
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="formGridIdNumber">
+                    <Form.Group as={Col} controlId="formGridCargoType">
                         <Form.Label>Identification Number(TFN/ABN)</Form.Label>
                         <Form.Control
-                            //type="email"
-                            name="identificationNo"
+                            //type="cargoType"
+                            name="cargoType"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.identificationNo}
-                            placeholder="Enter your identification number"
+                            value={formik.values.cargoType}
+                            placeholder="Enter cargo type"
                         />
                         <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.identificationNo && formik.touched.identificationNo && formik.errors.identificationNo}</Col>
                     </Form.Group>
                 </Form.Row>
 
                 <Form.Row>
-                    <Form.Group as={Col} controlId="formGridQualification">
-                        <Form.Label>Qualifications</Form.Label>
+                    <Form.Group as={Col} controlId="formGridCargoAvailable">
+                        <Form.Label>Cargo Available</Form.Label>
                         <Form.Control
-                            //type="qualifications"
-                            name="qualifications"
+                            //type="cargoAvailable"
+                            name="cargoAvailable"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.qualifications}
-                            placeholder="Enter your qualifications"
+                            value={formik.values.cargoAvailable}
+                            placeholder="Enter cargo available"
                         />
                         <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</Col>
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="formGridFoodPreference">
-                        <Form.Label>Food Preference</Form.Label>
+                    <Form.Group as={Col} controlId="formGridDestination">
+                        <Form.Label>Destination</Form.Label>
                         <Form.Control
-                            //type="foodPreferences"
-                            name="foodPreferences"
+                            //type="destination"
+                            name="destination"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.foodPreferences}
-                            placeholder="Enter your food preferences"
+                            value={formik.values.destination}
+                            placeholder="Enter the destination"
                         />
                         <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</Col>
                     </Form.Group>
                 </Form.Row>
 
-                <Form.Group controlId="formGridddWorkExp">
-                    <Form.Label>Work Experience</Form.Label>
-                    <Form.Control
-                        //type="workExperience"
-                        name="workExperience"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.workExperience}
-                        placeholder="Enter your work experience"
-                    />
-                    <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.workExperience && formik.touched.workExperience && formik.errors.workExperience}</Col>
-                </Form.Group>
-
                 <Form.Row>
-                    <Form.Group as={Col} controlId="formGridOccupation">
-                        <Form.Label>Occupation</Form.Label>
+                    <Form.Group as={Col} controlId="formGridShuttleId">
+                        <Form.Label>Shuttle Id</Form.Label>
                         <Form.Control
-                            //type="occupation"
-                            name="occupation"
+                            //type="shuttleId"
+                            name="shuttleId"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.occupation}
-                            placeholder="Enter your occupation"
+                            value={formik.values.shuttleId}
+                            placeholder="Enter the shuttle ID you want to use"
                         />
                         <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.occupation && formik.touched.occupation && formik.errors.occupation}</Col>
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="formGridFoodCSkill">
-                        <Form.Label>Computer Skills</Form.Label>
+                    <Form.Group as={Col} controlId="formGridCoordinatorId">
+                        <Form.Label>Coordinator Id</Form.Label>
                         <Form.Control
                             //type="computerSkills"
-                            name="computerSkills"
+                            name="coordinatorId"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.computerSkills}
-                            placeholder="Enter your computer skills"
+                            value={formik.values.coordinatorId}
+                            placeholder="Enter your id number"
                         />
                         <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.computerSkills && formik.touched.computerSkills && formik.errors.computerSkills}</Col>
                     </Form.Group>
                 </Form.Row>
 
-                {/** change to text input */}
-                <Form.Group controlId="formGridLanguages">
-                    <Form.Label>Languages Spoken</Form.Label>
-                    <Form.Control
-                        //type="languages"
-                        name="languages"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.languages}
-                        placeholder="Enter the language you speak"
-                    />
-                    <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.languages && formik.touched.languages && formik.errors.languages}</Col>
-                </Form.Group>
                 {/** submit button */}
-                <Button type="submit">Register</Button>
+                <Button type="submit">Submit</Button>
                 <Modal show={showConsent}>
                     <Modal.Header>
                         <Modal.Title>Authorisation Confirm</Modal.Title>
@@ -293,4 +256,4 @@ const Register =  ({ setUserName }) => {
         </>
     )
 }
-export default Register;
+export default NewMission;
