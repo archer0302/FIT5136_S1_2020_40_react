@@ -33,8 +33,7 @@ const Register =  ({ setUserName }) => {
                 closeConsent();
                 window.localStorage.setItem('role', 'candidate');
                 window.localStorage.setItem('id', res.data.id);
-                window.localStorage.setItem('userName', res.data.userName);
-                setUserName(res.data.userName);
+                window.localStorage.setItem('userName', res.data.name);
                 history.push(`/candidate`);
             })
             .catch(function (error) {
