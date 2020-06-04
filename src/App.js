@@ -55,7 +55,7 @@ const App = () => {
           <Switch>
             <CoordinatorRouter path="/coordinator" component={CoordinatorMissionList}/>
             <AdministratorRouter path="/administrator" component={AdministratorMissionList}/>
-            <Route path="/register" render={(props) => <Register {...props}/>}/>
+            <Route path="/register" render={(props) => <Register {...props} setUserName={setUserName}/>}/>
             <Route path="/candidate" render={(props) => <CandidateInformation {...props}/>}/>
             <Route path="/" render={(props) => <LoginPage {...props} setUserName={setUserName}/>}/>
           </Switch>

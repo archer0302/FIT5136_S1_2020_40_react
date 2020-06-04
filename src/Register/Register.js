@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 
-const Register =  () => {
+const Register =  ({ setUserName }) => {
     const history = useHistory();
     const [candidate, setCandidate] = useState({});
     const [showConsent, setShowConsent] = useState(false);
@@ -33,6 +33,8 @@ const Register =  () => {
                 closeConsent();
                 window.localStorage.setItem('role', 'candidate');
                 window.localStorage.setItem('id', res.data.id);
+                window.localStorage.setItem('userName', res.data.userName);
+                setUserName(res.data.userName);
                 history.push(`/candidate`);
             })
             .catch(function (error) {
