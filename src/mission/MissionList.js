@@ -10,6 +10,7 @@ const TableWrapper = styled.div`
   border-radius: 4px;
   width: 80%;
   margin: auto;
+  color: #5C3D47;
 `;
 
 const MissionList = () => {
@@ -58,6 +59,7 @@ const MissionList = () => {
 
   return (
     <TableWrapper>
+      <h2 style={{marginBottom: '20px', textAlign: 'center'}}>MISSION LIST</h2>
       <Table>
         <thead>
           <tr style={{ textAlign: 'center' }}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Col, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { ErrorMessage} from './common/Utils';
@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import { Link } from 'react-router-dom';
 
 
-const MissionForm = styled(Form)`
+const FormWrapper = styled(Form)`
   width: 60%;
   margin: auto;
   padding: 50px;
@@ -17,9 +17,35 @@ const MissionForm = styled(Form)`
   background-color: #F4EEEB;
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 50px;
 `
 
-const NewMission =  () => {
+const MissionForm =  ({ missionId }) => {
+
+    const [mission, setMission] = useState({
+        missionName: '',
+        missionDescription: '',
+        launchDate: '',
+        countryOfOrigin:'',
+        countryAllowed:'',
+        duration:'',
+        ageRange:'',
+        cargoRequirement:'',
+        cargoType:'',
+        cargoAvailable:'',
+        destination:'',
+        shuttleId:'',
+        coordinatorId:'',
+    });
+
+    useEffect(() =>  {
+        console.log(missionId);
+        const fetchData = async () => {
+            const response = await axios.get(`http://localhost:8080/mission/${missionId}`);
+            setMission(response.data);
+        }
+        fetchData();
+    }, []);
 
     /** yup validation schema */
     const schema = yup.object({
@@ -28,25 +54,15 @@ const NewMission =  () => {
 
     /** setup formik */
     const formik = useFormik({
+        enableReinitialize: true,
         /** init value */
         initialValues: {
-            missionName: '',
-            missionDescription: '',
-            launchDate: '',
-            countryOfOrigin:'',
-            countryAllowed:'',
-            duration:'',
-            ageRange:'',
-            cargoRequirement:'',
-            cargoType:'',
-            cargoAvailable:'',
-            destination:'',
-            shuttleId:'',
-            coordinatorId:'',
+            ...mission
         },
         /** actions when you click submit button */
         onSubmit: values => {
-            axios.post(`http://localhost:8080/mission/insert`, values)
+            const url = missionId ? `http://localhost:8080/mission/${missionId}` : `http://localhost:8080/mission/insert`;
+            axios.post(url, values)
                 .then(res => {
                     // if success then do...
                     console.log(res);
@@ -64,9 +80,9 @@ const NewMission =  () => {
 
     return(
         <>
-            <MissionForm onSubmit={formik.handleSubmit}>
+            <FormWrapper onSubmit={formik.handleSubmit}>
               <Link to="/coordinator">Back to mission list</Link>
-              <h2 style={{marginBottom: '20px'}}>NEW MISSION</h2>
+              <h2 style={{marginBottom: '20px'}}>{missionId ? 'EDIT MISSION' : 'NEW MISSION'}</h2>
                     <Form.Group controlId="formGridMissionName">
                         <Form.Label>Mission Name</Form.Label>
                         {/** formik controlled column */}
@@ -234,8 +250,8 @@ const NewMission =  () => {
                 </Form.Row>
                 {/** submit button */}
                 <Button type="submit" variant="flat-primary">Submit</Button>
-            </MissionForm>
+            </FormWrapper>
         </>
     )
 }
-export default NewMission;
+export default MissionForm;
