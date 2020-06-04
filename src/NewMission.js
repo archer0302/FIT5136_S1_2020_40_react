@@ -76,7 +76,6 @@ const NewMission =  () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.missionName}
-                            placeholder="Enter mission name"
                         />
                         {/* Column for error messages */}
                         <ErrorMessage>{formik.errors.email && formik.touched.email && formik.errors.email}</ErrorMessage>
@@ -89,7 +88,6 @@ const NewMission =  () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.missionDescription}
-                            placeholder="Enter description of the mission"
                         />
                         <ErrorMessage>{formik.errors.password && formik.touched.password && formik.errors.password}</ErrorMessage>
                     </Form.Group>
@@ -102,7 +100,6 @@ const NewMission =  () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.launchDate}
-                        placeholder="Enter the launch date"
                     />
                     <ErrorMessage>{formik.errors.address && formik.touched.address && formik.errors.address}</ErrorMessage>
                 </Form.Group>
@@ -115,7 +112,6 @@ const NewMission =  () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.countryOfOrigin}
-                        placeholder="Enter the origin of country"
                     />
                     <ErrorMessage>{formik.errors.name && formik.touched.name && formik.errors.name}</ErrorMessage>
                 </Form.Group>
@@ -128,7 +124,6 @@ const NewMission =  () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.countryAllowed}
-                        placeholder="Enter countries are allowed"
                     />
                     <ErrorMessage>{formik.errors.dob && formik.touched.dob && formik.errors.dob}</ErrorMessage>
                 </Form.Group>
@@ -142,7 +137,6 @@ const NewMission =  () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.duration}
-                            placeholder="Enter the duration"
                         />
                         <ErrorMessage>{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</ErrorMessage>
                     </Form.Group>
@@ -155,7 +149,6 @@ const NewMission =  () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.ageRange}
-                            placeholder="Enter the age range of candidates"
                         />
                         <ErrorMessage>{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</ErrorMessage>
                     </Form.Group>
@@ -170,7 +163,6 @@ const NewMission =  () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.cargoRequirement}
-                            placeholder="Enter cargo requirements"
                         />
                         <ErrorMessage>{formik.errors.allergies && formik.touched.allergies && formik.errors.allergies}</ErrorMessage>
                     </Form.Group>
@@ -183,7 +175,6 @@ const NewMission =  () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.cargoType}
-                            placeholder="Enter cargo type"
                         />
                         <ErrorMessage>{formik.errors.identificationNo && formik.touched.identificationNo && formik.errors.identificationNo}</ErrorMessage>
                     </Form.Group>
@@ -198,7 +189,6 @@ const NewMission =  () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.cargoAvailable}
-                            placeholder="Enter cargo available"
                         />
                         <ErrorMessage>{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</ErrorMessage>
                     </Form.Group>
@@ -226,7 +216,6 @@ const NewMission =  () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.shuttleId}
-                            placeholder="Enter the shuttle ID you want to use"
                         />
                         <ErrorMessage>{formik.errors.occupation && formik.touched.occupation && formik.errors.occupation}</ErrorMessage>
                     </Form.Group>
@@ -239,7 +228,6 @@ const NewMission =  () => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.coordinatorId}
-                            placeholder="Enter your id number"
                         />
                         <ErrorMessage>{formik.errors.computerSkills && formik.touched.computerSkills && formik.errors.computerSkills}</ErrorMessage>
                     </Form.Group>
