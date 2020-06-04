@@ -12,6 +12,7 @@ import Register from './register/Register';
 import NewMission from './NewMission';
 import MissionList from './mission/MissionList';
 import CoordinatorPage from './coordinator/CoordinatorPage';
+import MissionView from "./mission/MissionView";
 
 const AppContainer = styled(Container).attrs({
   className: "container"
@@ -60,7 +61,7 @@ const App = () => {
             <Route path="/register" render={(props) => <Register {...props} setUserName={setUserName}/>}/>
             <Route path="/candidate" render={(props) => <CandidateInformation {...props}/>}/>
             <Route path="/mission/new" render={(props) => <NewMission {...props}/>}/>
-            <Route path="/mission/view" render={(props) => <NewMission {...props}/>}/>
+            <Route path="/mission/view" render={(props) => <MissionView {...props}/>}/>
             <Route path="/" render={(props) => <LoginPage {...props} setUserName={setUserName}/>}/>
           </Switch>
         </BrowserRouter>
