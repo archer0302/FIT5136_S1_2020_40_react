@@ -13,7 +13,6 @@ import NewMission from './NewMission';
 import MissionList from './mission/MissionList';
 import CoordinatorPage from './coordinator/CoordinatorPage';
 import MissionView from "./mission/MissionView";
-import CriteriaView from "./criteria/CriteriaView";
 
 const AppContainer = styled(Container).attrs({
   className: "container"
