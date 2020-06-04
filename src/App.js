@@ -5,13 +5,12 @@ import { Media, Container } from 'react-bootstrap';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import CoordinatorRouter from './coordinator/CoordinatorRouter';
-import CoordinatorMissionList from './coordinator/CoordinatorMissionList';
 import AdministratorRouter from './administrator/AdministratorRouter';
-import AdministratorMissionList from './administrator/AdministratorMissionList';
 import CandidateInformation from './candidate/CandidateInformation';
 import LogoutButton from './LogoutButton';
 import Register from './register/Register';
 import NewMission from './NewMission';
+import MissionList from './mission/MissionList';
 
 const AppContainer = styled(Container).attrs({
   className: "container"
@@ -54,8 +53,8 @@ const App = () => {
             )
           }
           <Switch>
-            <CoordinatorRouter path="/coordinator" component={CoordinatorMissionList}/>
-            <AdministratorRouter path="/administrator" component={AdministratorMissionList}/>
+            <CoordinatorRouter path="/coordinator" component={MissionList}/>
+            <AdministratorRouter path="/administrator" component={MissionList}/>
             <Route path="/register" render={(props) => <Register {...props} setUserName={setUserName}/>}/>
             <Route path="/candidate" render={(props) => <CandidateInformation {...props}/>}/>
             <Route path="/mission/new" render={(props) => <NewMission {...props}/>}/>

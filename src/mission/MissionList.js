@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import {Table, Button} from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import axios from 'axios';
 
-const CoordinatorMissionList = () => {
-  const coordinatorId = window.localStorage.getItem("id");
+const MissionList = () => {
+  const role = window.localStorage.getItem("role");
+  const id = window.localStorage.getItem("id");
 
 	const [missionList, setMissionList] = useState([]);
   
   useEffect(() =>  {
-    console.log(coordinatorId);
-    if (coordinatorId) {
-      const fetchData = async () => {
-        const response = await axios.get(`http://localhost:8080/mission/list/${coordinatorId}`);
-        setMissionList(response.data);
-      }
-      fetchData();
+    console.log(id);
+    const url = role === 'coordinator' ? 
+        `http://localhost:8080/mission/list/${id}` : `http://localhost:8080/mission/list/`;
+    const fetchData = async () => {
+      const response = await axios.get(url);
+      setMissionList(response.data);
     }
+    fetchData();
   }, []);
 
   return (
@@ -49,4 +50,4 @@ const CoordinatorMissionList = () => {
   )
 }
 
-export default CoordinatorMissionList;
+export default MissionList;
