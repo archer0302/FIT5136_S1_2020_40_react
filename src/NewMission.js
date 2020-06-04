@@ -1,22 +1,15 @@
-import React, { useState } from 'react';
-import { Form, Col, Button, Modal } from 'react-bootstrap';
+import React from 'react';
+import { Form, Col, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 
-const NewMission =  ({ setUserName }) => {
-    const history = useHistory();
+const NewMission =  () => {
 
     /** yup validation schema */
     const schema = yup.object({
-        email: yup.string()
-            .required()
-            .email('Invalid email'),
-        password: yup.string()
-            .required(),
-        name: yup.string()
-            .required()
+        
     });
 
     /** setup formik */
@@ -235,23 +228,8 @@ const NewMission =  ({ setUserName }) => {
                         <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.computerSkills && formik.touched.computerSkills && formik.errors.computerSkills}</Col>
                     </Form.Group>
                 </Form.Row>
-
                 {/** submit button */}
                 <Button type="submit">Submit</Button>
-                <Modal show={showConsent}>
-                    <Modal.Header>
-                        <Modal.Title>Authorisation Confirm</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>I confirm that....(Can not complete register if decline)</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="success" onClick={submitRegister}>
-                            Confirm
-                        </Button>
-                        <Button variant="danger" onClick={closeConsent}>
-                            Decline
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
             </Form>
         </>
     )

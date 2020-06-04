@@ -11,6 +11,7 @@ import AdministratorMissionList from './administrator/AdministratorMissionList';
 import CandidateInformation from './candidate/CandidateInformation';
 import LogoutButton from './LogoutButton';
 import Register from './register/Register';
+import NewMission from './NewMission';
 
 const AppContainer = styled(Container).attrs({
   className: "container"
@@ -57,6 +58,7 @@ const App = () => {
             <AdministratorRouter path="/administrator" component={AdministratorMissionList}/>
             <Route path="/register" render={(props) => <Register {...props} setUserName={setUserName}/>}/>
             <Route path="/candidate" render={(props) => <CandidateInformation {...props}/>}/>
+            <Route path="/mission/new" render={(props) => <NewMission {...props}/>}/>
             <Route path="/" render={(props) => <LoginPage {...props} setUserName={setUserName}/>}/>
           </Switch>
         </BrowserRouter>
