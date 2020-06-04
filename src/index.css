@@ -12,8 +12,17 @@ code {
     monospace;
 }
 
-.btn-flat-primary {
+.btn-flat-success {
 	background-color: #66a96d;
+	color: #F4EEEB;
+}
+
+.btn-flat-success:hover {
+	color: #F4EEEB;
+}
+
+.btn-flat-primary {
+	background-color: #507ccc;
 	color: #F4EEEB;
 }
 

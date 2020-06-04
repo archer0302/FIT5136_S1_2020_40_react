@@ -1,9 +1,23 @@
 import React from 'react';
 import { Form, Col, Button } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { ErrorMessage} from './common/Utils';
 import axios from 'axios';
+import styled from 'styled-components';
 import * as yup from 'yup';
+import { Link } from 'react-router-dom';
+
+
+const MissionForm = styled(Form)`
+  width: 60%;
+  margin: auto;
+  padding: 50px;
+  padding-top:35px;
+  color: #5C3D47;
+  background-color: #F4EEEB;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+`
 
 const NewMission =  () => {
 
@@ -50,7 +64,9 @@ const NewMission =  () => {
 
     return(
         <>
-            <Form onSubmit={formik.handleSubmit}>
+            <MissionForm onSubmit={formik.handleSubmit}>
+              <Link to="/coordinator">Back to mission list</Link>
+              <h3 style={{marginBottom: '20px'}}>New Mission</h3>
                     <Form.Group controlId="formGridMissionName">
                         <Form.Label>Mission Name</Form.Label>
                         {/** formik controlled column */}
@@ -63,7 +79,7 @@ const NewMission =  () => {
                             placeholder="Enter mission name"
                         />
                         {/* Column for error messages */}
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.email && formik.touched.email && formik.errors.email}</Col>
+                        <ErrorMessage>{formik.errors.email && formik.touched.email && formik.errors.email}</ErrorMessage>
                     </Form.Group>
 
                     <Form.Group controlId="formGridMissionDescription">
@@ -75,7 +91,7 @@ const NewMission =  () => {
                             value={formik.values.missionDescription}
                             placeholder="Enter description of the mission"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.password && formik.touched.password && formik.errors.password}</Col>
+                        <ErrorMessage>{formik.errors.password && formik.touched.password && formik.errors.password}</ErrorMessage>
                     </Form.Group>
 
                 <Form.Group controlId="formGridLaunchDate">
@@ -88,7 +104,7 @@ const NewMission =  () => {
                         value={formik.values.launchDate}
                         placeholder="Enter the launch date"
                     />
-                    <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.address && formik.touched.address && formik.errors.address}</Col>
+                    <ErrorMessage>{formik.errors.address && formik.touched.address && formik.errors.address}</ErrorMessage>
                 </Form.Group>
 
                 <Form.Group controlId="formGridCountryOfOrigin">
@@ -101,7 +117,7 @@ const NewMission =  () => {
                         value={formik.values.countryOfOrigin}
                         placeholder="Enter the origin of country"
                     />
-                    <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.name && formik.touched.name && formik.errors.name}</Col>
+                    <ErrorMessage>{formik.errors.name && formik.touched.name && formik.errors.name}</ErrorMessage>
                 </Form.Group>
 
                 <Form.Group controlId="formGridCountryAllowed">
@@ -114,7 +130,7 @@ const NewMission =  () => {
                         value={formik.values.countryAllowed}
                         placeholder="Enter countries are allowed"
                     />
-                    <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.dob && formik.touched.dob && formik.errors.dob}</Col>
+                    <ErrorMessage>{formik.errors.dob && formik.touched.dob && formik.errors.dob}</ErrorMessage>
                 </Form.Group>
 
                 <Form.Row>
@@ -128,7 +144,7 @@ const NewMission =  () => {
                             value={formik.values.duration}
                             placeholder="Enter the duration"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</Col>
+                        <ErrorMessage>{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</ErrorMessage>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridAgeRange">
@@ -141,7 +157,7 @@ const NewMission =  () => {
                             value={formik.values.ageRange}
                             placeholder="Enter the age range of candidates"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</Col>
+                        <ErrorMessage>{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</ErrorMessage>
                     </Form.Group>
                 </Form.Row>
 
@@ -156,7 +172,7 @@ const NewMission =  () => {
                             value={formik.values.cargoRequirement}
                             placeholder="Enter cargo requirements"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.allergies && formik.touched.allergies && formik.errors.allergies}</Col>
+                        <ErrorMessage>{formik.errors.allergies && formik.touched.allergies && formik.errors.allergies}</ErrorMessage>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridCargoType">
@@ -169,7 +185,7 @@ const NewMission =  () => {
                             value={formik.values.cargoType}
                             placeholder="Enter cargo type"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.identificationNo && formik.touched.identificationNo && formik.errors.identificationNo}</Col>
+                        <ErrorMessage>{formik.errors.identificationNo && formik.touched.identificationNo && formik.errors.identificationNo}</ErrorMessage>
                     </Form.Group>
                 </Form.Row>
 
@@ -184,7 +200,7 @@ const NewMission =  () => {
                             value={formik.values.cargoAvailable}
                             placeholder="Enter cargo available"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</Col>
+                        <ErrorMessage>{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</ErrorMessage>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridDestination">
@@ -197,7 +213,7 @@ const NewMission =  () => {
                             value={formik.values.destination}
                             placeholder="Enter the destination"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</Col>
+                        <ErrorMessage>{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</ErrorMessage>
                     </Form.Group>
                 </Form.Row>
 
@@ -212,7 +228,7 @@ const NewMission =  () => {
                             value={formik.values.shuttleId}
                             placeholder="Enter the shuttle ID you want to use"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.occupation && formik.touched.occupation && formik.errors.occupation}</Col>
+                        <ErrorMessage>{formik.errors.occupation && formik.touched.occupation && formik.errors.occupation}</ErrorMessage>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridCoordinatorId">
@@ -225,12 +241,12 @@ const NewMission =  () => {
                             value={formik.values.coordinatorId}
                             placeholder="Enter your id number"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.computerSkills && formik.touched.computerSkills && formik.errors.computerSkills}</Col>
+                        <ErrorMessage>{formik.errors.computerSkills && formik.touched.computerSkills && formik.errors.computerSkills}</ErrorMessage>
                     </Form.Group>
                 </Form.Row>
                 {/** submit button */}
-                <Button type="submit">Submit</Button>
-            </Form>
+                <Button type="submit" variant="flat-primary">Submit</Button>
+            </MissionForm>
         </>
     )
 }

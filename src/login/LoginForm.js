@@ -3,7 +3,7 @@ import { Form, Row, Col, Button, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components'
 
 
@@ -18,7 +18,6 @@ const LoginForm = ({role, setUserName}) => {
 	const [errorMessage, setErrorMessage] = useState('');
 	
 	const handleClose = () => setShow(false);
-	const goRegister = () => history.push('/register');
 
 	/** yup validation schema */ 
 	const schema = yup.object({
@@ -86,8 +85,8 @@ const LoginForm = ({role, setUserName}) => {
 				<Col md={{offset: 2}} style={{color: '#C95B64'}}>{formik.errors.password && formik.touched.password && formik.errors.password}</Col>
 				</Form.Group>
 				{/** submit button */}
-				<Button type="submit" variant="flat-primary">Login</Button>
-				{ role === "candidate" && <Button type="submit" onClick={goRegister} style={{marginLeft: '10px'}}>Register</Button> }
+				<Button type="submit" variant="flat-success">Login</Button>
+				{ role === "candidate" && <span>  or <Link to="register" style={{marginLeft: '2px'}}>Register</Link></span>}
 			</StyledForm>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>

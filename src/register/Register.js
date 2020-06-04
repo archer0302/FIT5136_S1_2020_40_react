@@ -4,6 +4,21 @@ import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { ErrorMessage } from '../common/Utils';
+
+const RegisterForm = styled(Form)`
+  width: 60%;
+  margin: auto;
+  padding: 50px;
+  padding-top:35px;
+  color: #5C3D47;
+  background-color: #F4EEEB;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+`
+
 
 const Register =  ({ setUserName }) => {
     const history = useHistory();
@@ -21,8 +36,32 @@ const Register =  ({ setUserName }) => {
             .email('Invalid email'),
 		password: yup.string()
             .required(),
-        name: yup.string()
-            .required()
+        // name: yup.string()
+        //     .required(),
+        // address: yup.string()
+        //     .required(),
+        // dob: yup.string()
+        //     .required(),
+        // nationality: yup.string()
+        //     .required(),
+        // gender: yup.string()
+        //     .required(),
+        // identificationNo: yup.string()
+        //     .required(),
+        // foodPreferences: yup.string()
+        //     .required(),
+        // workExperience: yup.string()
+        //     .required(),
+        // computerSkills: yup.string()
+        //     .required(),
+        // languages: yup.string()
+        //     .required(),
+        // allergies: yup.string()
+        //     .required(),
+        // occupation: yup.string()
+        //     .required(),
+        // qualifications: yup.string()
+        //     .required(),
     });
 
     const submitRegister = () => {
@@ -76,10 +115,12 @@ const Register =  ({ setUserName }) => {
 
     return(
         <>
-            <Form onSubmit={formik.handleSubmit}>
+            <RegisterForm onSubmit={formik.handleSubmit}>
+                <Link to="/">Back to homepage</Link>
+                <h3 style={{marginBottom: '20px'}}>Register as candidate</h3>
                 <Form.Row>
                     <Form.Group as={Col} controlId="formGridUsername">
-                        <Form.Label>Username(Email)</Form.Label>
+                        <Form.Label>Username(Email)*</Form.Label>
                         {/** formik controlled column */}
                         <Form.Control
                             //type="email"
@@ -90,11 +131,11 @@ const Register =  ({ setUserName }) => {
                             placeholder="Enter username"
                         />
                         {/* Column for error messages */}
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.email && formik.touched.email && formik.errors.email}</Col>
+                        <ErrorMessage>{formik.errors.email && formik.touched.email && formik.errors.email}</ErrorMessage>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridPassword">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label>Password*</Form.Label>
                         <Form.Control
                             type="password"
                             name="password"
@@ -103,9 +144,22 @@ const Register =  ({ setUserName }) => {
                             value={formik.values.password}
                             placeholder="Enter password"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.password && formik.touched.password && formik.errors.password}</Col>
+                        <ErrorMessage>{formik.errors.password && formik.touched.password && formik.errors.password}</ErrorMessage>
                     </Form.Group>
                 </Form.Row>
+
+                <Form.Group controlId="formGridName">
+                    <Form.Label>Name*</Form.Label>
+                    <Form.Control
+                        //type="name"
+                        name="name"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.name}
+                        placeholder="Enter username"
+                    />
+                    <ErrorMessage>{formik.errors.name && formik.touched.name && formik.errors.name}</ErrorMessage>
+                </Form.Group>
 
                 <Form.Group controlId="formGridAddress">
                     <Form.Label>Address</Form.Label>
@@ -117,21 +171,8 @@ const Register =  ({ setUserName }) => {
                         value={formik.values.address}
                         placeholder="Enter your address"
                     />
-                    <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.address && formik.touched.address && formik.errors.address}</Col>
+                    <ErrorMessage>{formik.errors.address && formik.touched.address && formik.errors.address}</ErrorMessage>
 
-                </Form.Group>
-
-                <Form.Group controlId="formGridName">
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control
-                        //type="name"
-                        name="name"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.name}
-                        placeholder="Enter username"
-                    />
-                    <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.name && formik.touched.name && formik.errors.name}</Col>
                 </Form.Group>
 
                 <Form.Group controlId="formGridDob">
@@ -144,28 +185,28 @@ const Register =  ({ setUserName }) => {
                         value={formik.values.dob}
                         placeholder="Enter your date of birth with format 'xx/xx/xxxx'"
                     />
-                    <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.dob && formik.touched.dob && formik.errors.dob}</Col>
+                    <ErrorMessage>{formik.errors.dob && formik.touched.dob && formik.errors.dob}</ErrorMessage>
                 </Form.Group>
 
                 <Form.Row>
-                    <Form.Group controlId="select your nationality">
-                    <Form.Label>Nationality</Form.Label>
-                        <Form.Control
-                            //type="name"
-                            name="nationality"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.nationality}
-                            as="select">
-                        <option>Australian</option>
-                        <option>Chinese</option>
-                        <option>England</option>
-                        <option>American</option>
-                        <option>French</option>
-                    </Form.Control>
+                    <Form.Group as={Col} controlId="select your nationality">
+                        <Form.Label>Nationality</Form.Label>
+                            <Form.Control
+                                //type="name"
+                                name="nationality"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.nationality}
+                                as="select">
+                            <option>Australian</option>
+                            <option>Chinese</option>
+                            <option>England</option>
+                            <option>American</option>
+                            <option>French</option>
+                        </Form.Control>
                     </Form.Group>
 
-                    <Form.Group controlId="select your gender">
+                    <Form.Group as={Col} controlId="select your gender">
                         <Form.Label>Gender</Form.Label>
                         <Form.Control
                             //type="name"
@@ -191,7 +232,7 @@ const Register =  ({ setUserName }) => {
                             value={formik.values.allergies}
                             placeholder="Enter your allergies"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.allergies && formik.touched.allergies && formik.errors.allergies}</Col>
+                        <ErrorMessage>{formik.errors.allergies && formik.touched.allergies && formik.errors.allergies}</ErrorMessage>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridIdNumber">
@@ -204,7 +245,7 @@ const Register =  ({ setUserName }) => {
                             value={formik.values.identificationNo}
                             placeholder="Enter your identification number"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.identificationNo && formik.touched.identificationNo && formik.errors.identificationNo}</Col>
+                        <ErrorMessage>{formik.errors.identificationNo && formik.touched.identificationNo && formik.errors.identificationNo}</ErrorMessage>
                     </Form.Group>
                 </Form.Row>
 
@@ -219,7 +260,7 @@ const Register =  ({ setUserName }) => {
                             value={formik.values.qualifications}
                             placeholder="Enter your qualifications"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</Col>
+                        <ErrorMessage>{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</ErrorMessage>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridFoodPreference">
@@ -232,7 +273,7 @@ const Register =  ({ setUserName }) => {
                             value={formik.values.foodPreferences}
                             placeholder="Enter your food preferences"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</Col>
+                        <ErrorMessage>{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</ErrorMessage>
                     </Form.Group>
                 </Form.Row>
 
@@ -246,7 +287,7 @@ const Register =  ({ setUserName }) => {
                         value={formik.values.workExperience}
                         placeholder="Enter your work experience"
                     />
-                    <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.workExperience && formik.touched.workExperience && formik.errors.workExperience}</Col>
+                    <ErrorMessage>{formik.errors.workExperience && formik.touched.workExperience && formik.errors.workExperience}</ErrorMessage>
                 </Form.Group>
 
                 <Form.Row>
@@ -260,7 +301,7 @@ const Register =  ({ setUserName }) => {
                             value={formik.values.occupation}
                             placeholder="Enter your occupation"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.occupation && formik.touched.occupation && formik.errors.occupation}</Col>
+                        <ErrorMessage>{formik.errors.occupation && formik.touched.occupation && formik.errors.occupation}</ErrorMessage>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridFoodCSkill">
@@ -273,7 +314,7 @@ const Register =  ({ setUserName }) => {
                             value={formik.values.computerSkills}
                             placeholder="Enter your computer skills"
                         />
-                        <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.computerSkills && formik.touched.computerSkills && formik.errors.computerSkills}</Col>
+                        <ErrorMessage>{formik.errors.computerSkills && formik.touched.computerSkills && formik.errors.computerSkills}</ErrorMessage>
                     </Form.Group>
                 </Form.Row>
 
@@ -288,10 +329,10 @@ const Register =  ({ setUserName }) => {
                         value={formik.values.languages}
                         placeholder="Enter the language you speak"
                     />
-                    <Col md={{offset: 2}} style={{color: 'red'}} >{formik.errors.languages && formik.touched.languages && formik.errors.languages}</Col>
+                    <ErrorMessage>{formik.errors.languages && formik.touched.languages && formik.errors.languages}</ErrorMessage>
                 </Form.Group>
                 {/** submit button */}
-                <Button type="submit">Register</Button>
+                <Button type="submit" variant="flat-primary">Register</Button>
                 <Modal show={showConsent}>
                     <Modal.Header>
                     <Modal.Title>Authorisation Confirm</Modal.Title>
@@ -306,7 +347,7 @@ const Register =  ({ setUserName }) => {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-            </Form>
+            </RegisterForm>
         </>
     )
 }
