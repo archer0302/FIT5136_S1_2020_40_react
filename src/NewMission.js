@@ -66,7 +66,7 @@ const NewMission =  () => {
         <>
             <MissionForm onSubmit={formik.handleSubmit}>
               <Link to="/coordinator">Back to mission list</Link>
-              <h3 style={{marginBottom: '20px'}}>New Mission</h3>
+              <h2 style={{marginBottom: '20px'}}>NEW MISSION</h2>
                     <Form.Group controlId="formGridMissionName">
                         <Form.Label>Mission Name</Form.Label>
                         {/** formik controlled column */}

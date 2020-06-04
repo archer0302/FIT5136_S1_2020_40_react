@@ -12,6 +12,15 @@ code {
     monospace;
 }
 
+.btn-flat-white {
+	background-color: #F4EEEB;
+	color: #5C3D47;
+}
+
+.btn-flat-white:hover {
+	color: #5C3D47;
+}
+
 .btn-flat-success {
 	background-color: #66a96d;
 	color: #F4EEEB;
@@ -30,6 +39,8 @@ code {
 	color: #F4EEEB;
 }
 
+
+
 .nav-tabs .nav-link.active {
   color: #5C3D47;
   background-color: #F4EEEB;
@@ -46,3 +57,4 @@ code {
   flex-grow: 1;
   text-align: center;
 }
+

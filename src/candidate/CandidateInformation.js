@@ -1,10 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import {Row, Col} from 'react-bootstrap';
 import axios from 'axios';
+import styled from 'styled-components';
+import { Button } from 'react-bootstrap';
+
+const Wrapper = styled.div`
+    background-color: #3b2b30;
+    color: white;
+    padding: 50px;
+    margin: auto;
+    border-radius: 4px;
+    max-width: 900px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+`;
+
+const Content = styled.div`
+    margin: auto;
+`;
+
+const StyledTable = styled.table`
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    tr {
+        margin-right: 10px;
+    }
+    td {
+        width: 180px;
+        height: 40px;
+    }
+`;
 
 const CandidateInformation = () => {
-    // const candidateId = window.localStorage.getItem("id");
-    const candidateId = 2204;
+    const candidateId = window.localStorage.getItem("id");
 
     const [candidate, setCandidate] = useState({});
 
@@ -21,42 +48,51 @@ const CandidateInformation = () => {
     }, []);
 
     return (
-        <div>
-            <Row>
-                <Col sm={1} style={{fontWeight: 'bold'}}>Name</Col>
-                <Col sm={4}>{candidate.name}</Col>
-                <Col sm={1} style={{fontWeight: 'bold'}}>Address</Col>
-                <Col sm={4}>{candidate.address}</Col>
-            </Row>
-            <Row>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Date of Birth</Col>
-                <Col sm={3}>{candidate.dob}</Col>
-                <Col sm={1} style={{fontWeight: 'bold'}}>Nationality</Col>
-                <Col sm={4}>{candidate.nationality}</Col>
-            </Row>
-            <Row>
-                <Col sm={3} style={{fontWeight: 'bold'}}>Identification Number</Col>
-                <Col sm={2}>{candidate.identificationNo}</Col>
-                <Col sm={1} style={{fontWeight: 'bold'}}>Gender</Col>
-                <Col sm={3}>{candidate.gender}</Col>
-            </Row>
-            <Row>
-                <Col sm={1} style={{fontWeight: 'bold'}}>Allergies</Col>
-                <Col sm={4}>{candidate.allergies}</Col>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Food Preferences</Col>
-                <Col sm={4}>{candidate.foodPreferences}</Col>
-            </Row>
-            <Row>
-                <Col sm={1} style={{fontWeight: 'bold'}}>Occupation</Col>
-                <Col sm={4}>{candidate.occupation}</Col>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Computer Skills</Col>
-                <Col sm={4}>{candidate.computerSkills}</Col>
-            </Row>
-            <Row>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Languages Spoken</Col>
-                <Col sm={4}>{candidate.languages}</Col>
-            </Row>
-        </div>
+        <Wrapper>
+            <Content>
+                <h2 style={{ textAlign: 'center',marginBottom: '20px' }}>CANDIDATE PROFILE</h2>
+                <StyledTable>
+                    <tr>
+                        <td style={{fontWeight: 'bold'}}>Name</td>
+                        <td>{candidate.name}</td>
+                        <td style={{fontWeight: 'bold'}}>Address</td>
+                        <td>{candidate.address}</td>
+                    </tr>
+                    <tr>
+                        <td  style={{fontWeight: 'bold'}}>Date of Birth</td>
+                        <td >{candidate.dob}</td>
+                        <td  style={{fontWeight: 'bold'}}>Nationality</td>
+                        <td >{candidate.nationality}</td>
+                    </tr>
+                    <tr>
+                        <td style={{fontWeight: 'bold'}}>Identification Number</td>
+                        <td>{candidate.identificationNo}</td>
+                        <td style={{fontWeight: 'bold'}}>Gender</td>
+                        <td>{candidate.gender}</td>
+                    </tr>
+                    <tr>
+                        <td style={{fontWeight: 'bold'}}>Allergies</td>
+                        <td>{candidate.allergies}</td>
+                        <td style={{fontWeight: 'bold'}}>Food Preferences</td>
+                        <td>{candidate.foodPreferences}</td>
+                    </tr>
+                    <tr>
+                        <td style={{fontWeight: 'bold'}}>Occupation</td>
+                        <td>{candidate.occupation}</td>
+                        <td style={{fontWeight: 'bold'}}>Computer Skills</td>
+                        <td>{candidate.computerSkills}</td>
+                    </tr>
+                    <tr>
+                        <td style={{fontWeight: 'bold'}}>Languages Spoken</td>
+                        <td>{candidate.languages}</td>
+                    </tr>
+                    
+                </StyledTable>
+                <div style={{ display: 'flex', justifyContent: 'center'}}>
+                    <Button style={{width: '200px' }} type='button' variant="flat-white">Edit Profile</Button>
+                </div>
+            </Content>
+        </Wrapper>
     )
 }
 

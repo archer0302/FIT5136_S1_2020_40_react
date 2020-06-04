@@ -7,7 +7,7 @@ const LoginTabs = styled(Tabs).attrs({
 	defaultActiveKey: "Administrator",
 })`
 	border-radius: 4px;
-	background: #9c888e;
+	background: #3b2b30;
 	flex-direction: row;
 `;
 
