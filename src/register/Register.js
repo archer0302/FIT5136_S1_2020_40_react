@@ -128,7 +128,6 @@ const Register =  ({ setUserName }) => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.email}
-                            placeholder="Enter username"
                         />
                         {/* Column for error messages */}
                         <ErrorMessage>{formik.errors.email && formik.touched.email && formik.errors.email}</ErrorMessage>
@@ -142,7 +141,6 @@ const Register =  ({ setUserName }) => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.password}
-                            placeholder="Enter password"
                         />
                         <ErrorMessage>{formik.errors.password && formik.touched.password && formik.errors.password}</ErrorMessage>
                     </Form.Group>
@@ -156,7 +154,6 @@ const Register =  ({ setUserName }) => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.name}
-                        placeholder="Enter username"
                     />
                     <ErrorMessage>{formik.errors.name && formik.touched.name && formik.errors.name}</ErrorMessage>
                 </Form.Group>
@@ -169,7 +166,6 @@ const Register =  ({ setUserName }) => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.address}
-                        placeholder="Enter your address"
                     />
                     <ErrorMessage>{formik.errors.address && formik.touched.address && formik.errors.address}</ErrorMessage>
 
@@ -183,7 +179,6 @@ const Register =  ({ setUserName }) => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.dob}
-                        placeholder="Enter your date of birth with format 'xx/xx/xxxx'"
                     />
                     <ErrorMessage>{formik.errors.dob && formik.touched.dob && formik.errors.dob}</ErrorMessage>
                 </Form.Group>
@@ -230,7 +225,6 @@ const Register =  ({ setUserName }) => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.allergies}
-                            placeholder="Enter your allergies"
                         />
                         <ErrorMessage>{formik.errors.allergies && formik.touched.allergies && formik.errors.allergies}</ErrorMessage>
                     </Form.Group>
@@ -243,7 +237,6 @@ const Register =  ({ setUserName }) => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.identificationNo}
-                            placeholder="Enter your identification number"
                         />
                         <ErrorMessage>{formik.errors.identificationNo && formik.touched.identificationNo && formik.errors.identificationNo}</ErrorMessage>
                     </Form.Group>
@@ -258,7 +251,6 @@ const Register =  ({ setUserName }) => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.qualifications}
-                            placeholder="Enter your qualifications"
                         />
                         <ErrorMessage>{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</ErrorMessage>
                     </Form.Group>
@@ -271,7 +263,6 @@ const Register =  ({ setUserName }) => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.foodPreferences}
-                            placeholder="Enter your food preferences"
                         />
                         <ErrorMessage>{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</ErrorMessage>
                     </Form.Group>
@@ -285,7 +276,6 @@ const Register =  ({ setUserName }) => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.workExperience}
-                        placeholder="Enter your work experience"
                     />
                     <ErrorMessage>{formik.errors.workExperience && formik.touched.workExperience && formik.errors.workExperience}</ErrorMessage>
                 </Form.Group>
@@ -299,7 +289,6 @@ const Register =  ({ setUserName }) => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.occupation}
-                            placeholder="Enter your occupation"
                         />
                         <ErrorMessage>{formik.errors.occupation && formik.touched.occupation && formik.errors.occupation}</ErrorMessage>
                     </Form.Group>
@@ -312,7 +301,6 @@ const Register =  ({ setUserName }) => {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.computerSkills}
-                            placeholder="Enter your computer skills"
                         />
                         <ErrorMessage>{formik.errors.computerSkills && formik.touched.computerSkills && formik.errors.computerSkills}</ErrorMessage>
                     </Form.Group>
@@ -327,7 +315,6 @@ const Register =  ({ setUserName }) => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.languages}
-                        placeholder="Enter the language you speak"
                     />
                     <ErrorMessage>{formik.errors.languages && formik.touched.languages && formik.errors.languages}</ErrorMessage>
                 </Form.Group>
