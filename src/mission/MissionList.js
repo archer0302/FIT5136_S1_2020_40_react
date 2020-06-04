@@ -3,6 +3,7 @@ import { Table, Button, Modal } from 'react-bootstrap';
 import { ErrorModal } from '../common/Utils';
 import axios from 'axios';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const TableWrapper = styled.div`
   background-color: #F4EEEB;
@@ -79,8 +80,9 @@ const MissionList = () => {
                 <td>{mission.shuttleId}</td>
                 <td></td>
                 <td style={{ textAlign: 'right' }}>
-                  <Button size="sm" style={{ marginRight: 10 }}>Edit</Button>
-                  <Button size="sm" variant="danger" onClick={() => deleteConfirm(mission.id, mission.missionName)}>Delete</Button>
+                  <Link to={`/mission/view/${mission.id}`} style={{ marginRight: 10 }}><Button size="sm" variant="flat-success">View</Button></Link>
+                  <Link to={`/mission/edit/${mission.id}`} style={{ marginRight: 10 }}><Button size="sm" variant="flat-primary">Edit</Button></Link>
+                  <Button size="sm" variant="flat-danger" onClick={() => deleteConfirm(mission.id, mission.missionName)}>Delete</Button>
                 </td>
               </tr>
             ) 

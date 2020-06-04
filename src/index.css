@@ -40,7 +40,14 @@ code {
 	color: #F4EEEB;
 }
 
+.btn-flat-danger {
+	background-color: #C95B64;
+	color: #F4EEEB;
+}
 
+.btn-flat-danger:hover {
+	color: #F4EEEB;
+}
 
 .nav-tabs .nav-link.active {
   color: #5C3D47;

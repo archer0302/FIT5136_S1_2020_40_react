@@ -1,6 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import {Row, Col} from 'react-bootstrap';
 import axios from 'axios';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+const Wrapper = styled.div`
+    background-color: #3b2b30;
+    color: white;
+    padding: 50px;
+    margin: auto;
+    border-radius: 4px;
+    max-width: 900px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+`;
+
+const Content = styled.div`
+    margin: auto;
+`;
+
+const StyledTable = styled.table`
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    tr {
+        margin-right: 10px;
+    }
+    td {
+        width: 180px;
+        height: 40px;
+    }
+`;
 
 const MissionView = () => {
     // const missionID = window.localStorage.getItem("id");
@@ -21,52 +49,54 @@ const MissionView = () => {
     }, []);
 
     return (
-        <div>
-            <Row>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Mission Name</Col>
-                <Col sm={4}>{mission.missionName}</Col>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Launch Date</Col>
-                <Col sm={2}>{mission.launchDate}</Col>
-            </Row>
-            <Row>
-                <Col sm={2} style={{fontWeight: 'bold'}}>mission Description</Col>
-                <Col sm={6}>{mission.missionDescription}</Col>
-            </Row>
-            <Row>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Country Of Origin</Col>
-                <Col sm={3}>{mission.countryOfOrigin}</Col>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Country Allowed</Col>
-                <Col sm={3}>{mission.countryAllowed}</Col>
-            </Row>
-            <Row>
-                <Col sm={1} style={{fontWeight: 'bold'}}>Duration</Col>
-                <Col sm={4}>{mission.duration}</Col>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Age Range</Col>
-                <Col sm={3}>{mission.ageRange}</Col>
-            </Row>
-            <Row>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Cargo Requirement</Col>
-                <Col sm={3}>{mission.cargoRequirement}</Col>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Cargo Type</Col>
-                <Col sm={3}>{mission.cargoType}</Col>
-            </Row>
-            <Row>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Cargo Available</Col>
-                <Col sm={3}>{mission.cargoAvailable}</Col>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Destination</Col>
-                <Col sm={4}>{mission.destination}</Col>
-            </Row>
-            <Row>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Status</Col>
-                <Col sm={3}>{mission.status}</Col>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Shuttle Id</Col>
-                <Col sm={3}>{mission.shuttleId}</Col>
-            </Row>
-            <Row>
-                <Col sm={2} style={{fontWeight: 'bold'}}>Coordinator Id</Col>
-                <Col sm={3}>{mission.coordinatorId}</Col>
-            </Row>
-        </div>
+        <Wrapper>
+            <Content>
+                <Link to="/coordinator">Back to mission list</Link>
+                <h2 style={{ textAlign: 'center',marginBottom: '20px' }}>MISSION PROFILE</h2>
+                <StyledTable>
+                <tr>
+                    <td style={{fontWeight: 'bold'}}>Mission Name</td>
+                    <td>{mission.missionName}</td>
+                    <td style={{fontWeight: 'bold'}}>Launch Date</td>
+                    <td>{mission.launchDate}</td>
+                </tr>
+                <tr>
+                    <td style={{fontWeight: 'bold'}}>Country Of Origin</td>
+                    <td>{mission.countryOfOrigin}</td>
+                    <td style={{fontWeight: 'bold'}}>Country Allowed</td>
+                    <td>{mission.countryAllowed}</td>
+                </tr>
+                <tr>
+                    <td style={{fontWeight: 'bold'}}>Duration</td>
+                    <td>{mission.duration}</td>
+                    <td style={{fontWeight: 'bold'}}>Age Range</td>
+                    <td>{mission.ageRange}</td>
+                </tr>
+                <tr>
+                    <td style={{fontWeight: 'bold'}}>Cargo Requirement</td>
+                    <td>{mission.cargoRequirement}</td>
+                    <td style={{fontWeight: 'bold'}}>Cargo Type</td>
+                    <td>{mission.cargoType}</td>
+                </tr>
+                <tr>
+                    <td style={{fontWeight: 'bold'}}>Cargo Available</td>
+                    <td>{mission.cargoAvailable}</td>
+                    <td style={{fontWeight: 'bold'}}>Destination</td>
+                    <td>{mission.destination}</td>
+                </tr>
+                <tr>
+                    <td style={{fontWeight: 'bold'}}>Status</td>
+                    <td>{mission.status}</td>
+                    <td style={{fontWeight: 'bold'}}>Shuttle Id</td>
+                    <td>{mission.shuttleId}</td>
+                </tr>
+                <tr>
+                    <td style={{fontWeight: 'bold'}}>mission Description</td>
+                    <td colSpan={3}>{mission.missionDescription}</td>
+                </tr>
+            </StyledTable>
+        </Content>
+    </Wrapper>
     )
 }
 

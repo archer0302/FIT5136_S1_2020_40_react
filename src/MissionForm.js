@@ -5,7 +5,7 @@ import { ErrorMessage} from './common/Utils';
 import axios from 'axios';
 import styled from 'styled-components';
 import * as yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 
 const FormWrapper = styled(Form)`
@@ -21,6 +21,7 @@ const FormWrapper = styled(Form)`
 `
 
 const MissionForm =  ({ missionId }) => {
+    const history = useHistory();
 
     const [mission, setMission] = useState({
         missionName: '',
@@ -66,7 +67,7 @@ const MissionForm =  ({ missionId }) => {
                 .then(res => {
                     // if success then do...
                     console.log(res);
-                    //history.push(`/candidate`);
+                    history.push(`/mission`);
                 })
                 .catch(function (error) {
                     // if error (http status not 200) then do...
@@ -81,7 +82,7 @@ const MissionForm =  ({ missionId }) => {
     return(
         <>
             <FormWrapper onSubmit={formik.handleSubmit}>
-              <Link to="/coordinator">Back to mission list</Link>
+              <Link to="/mission">Back to mission list</Link>
               <h2 style={{marginBottom: '20px'}}>{missionId ? 'EDIT MISSION' : 'NEW MISSION'}</h2>
                     <Form.Group controlId="formGridMissionName">
                         <Form.Label>Mission Name</Form.Label>
