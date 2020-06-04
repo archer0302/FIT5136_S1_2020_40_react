@@ -56,7 +56,6 @@ const CandidateInformation = () => {
                 <Col sm={2} style={{fontWeight: 'bold'}}>Languages Spoken</Col>
                 <Col sm={4}>{candidate.languages}</Col>
             </Row>
-
         </div>
     )
 }
