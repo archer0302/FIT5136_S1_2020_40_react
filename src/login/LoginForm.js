@@ -40,6 +40,7 @@ const LoginForm = ({role, setUserName}) => {
 				.then(res => {
 					window.localStorage.setItem('role', role);
 					window.localStorage.setItem('id', res.data.id);
+					window.localStorage.setItem('userName', res.data.userName);
 					setUserName(res.data.userName);
 					history.push(`/${role}/`);
 				})

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './static/icon.png';
 import LoginPage from './login/LoginPage';
 import { Media, Container } from 'react-bootstrap';
@@ -19,7 +19,7 @@ const AppContainer = styled(Container).attrs({
   color: #F4EEEB;
 `;
 
-const AppHeader = styled(Media)`
+const AppIcon = styled(Media)`
   padding: 30px;
   display: flex;
   flex-direction: column;
@@ -29,24 +29,26 @@ const AppHeader = styled(Media)`
   align-items: center;
 `;
 
-const AppBody = styled.div.attrs
-
 const App = () => {
   const [userName, setUserName] = useState('');
+
+  useEffect(() =>  {
+    setUserName(window.localStorage.getItem("userName"));
+  }, []);
 
   return (
     <div style={{backgroundColor: '#5C3D47', minHeight: '1080px'}} >
       <AppContainer>
         <BrowserRouter>
-          <AppHeader>
+          <AppIcon>
               <img src={logo} width={100} height={100}/>
               <h1>Mission to Mars</h1>
-          </AppHeader>
+          </AppIcon>
           {
-            window.localStorage.getItem("id") && (
-              <div class="col-2">
-                <LogoutButton setUserName={setUserName} />
-                <span>Hello, {userName}</span>
+            window.localStorage.getItem("userName") && (
+              <div>
+                {/* <span>Hello, {userName}</span> */}
+                <LogoutButton setUserName={setUserName} userName={userName}/>
               </div>
             )
           }

@@ -1,17 +1,25 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 
-const LogoutButton = ({ setUserName }) => {
+const LogoutButton = ({ setUserName, userName }) => {
 	const history = useHistory();
 
 	return (
-		<Button onClick={() => {
-			window.localStorage.removeItem('id');
-			window.localStorage.removeItem('role');
-			setUserName('');
-			history.push('/');
-		}}>Logout</Button>
+		<Nav style={{display: 'flex', alignItems: 'baseline'}}>
+			<Nav.Item>
+				Hello, {userName}
+			</Nav.Item>
+			<Nav.Item>
+				<Nav.Link onClick={() => {
+					window.localStorage.removeItem('id');
+					window.localStorage.removeItem('role');
+					window.localStorage.removeItem('userName');
+					setUserName('');
+					history.push('/');
+				}}>Logout</Nav.Link>
+			</Nav.Item>
+		</Nav>
 	)
 }
 
