@@ -30,28 +30,24 @@ const StyledTable = styled.table`
     }
 `;
 
-const MissionView = () => {
-    // const missionID = window.localStorage.getItem("id");
-    const missionID = 7003;
-
+const MissionView = ({ missionId }) => {
     const [mission, setMission] = useState({});
 
     useEffect(() =>  {
-        console.log(missionID);
-        if (missionID) {
+        if (missionId) {
             const fetchData = async () => {
-                const response = await axios.get(`http://localhost:8080/mission/${missionID}`);
+                const response = await axios.get(`http://localhost:8080/mission/${missionId}`);
                 console.log(response.data);
                 setMission(response.data);
             }
             fetchData();
         }
-    }, []);
+    }, [missionId]);
 
     return (
         <Wrapper>
             <Content>
-                <Link to="/coordinator">Back to mission list</Link>
+                <Link to="/mission/list">Back to mission list</Link>
                 <h2 style={{ textAlign: 'center',marginBottom: '20px' }}>MISSION PROFILE</h2>
                 <StyledTable>
                 <tr>
