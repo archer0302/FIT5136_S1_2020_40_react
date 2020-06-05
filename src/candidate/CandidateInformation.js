@@ -45,7 +45,7 @@ const CandidateInformation = () => {
             }
             fetchData();
         }
-    }, []);
+    }, [candidateId]);
 
     return (
         <Wrapper>

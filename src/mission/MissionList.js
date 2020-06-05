@@ -34,14 +34,14 @@ const MissionList = () => {
       setMissionList(response.data);
     }
     fetchData();
-  }, []);
+  }, [id, role]);
 
   const deleteMission = (missionId) => {
     axios.delete(`http://localhost:8080/mission/${missionId}`)
         .then((res) => {
           setShowModal(false);
           setMissionList(
-            missionList.filter(mission => mission.id != missionId)
+            missionList.filter(mission => mission.id !== missionId)
           );
         })
         .catch(function (error) {
