@@ -36,16 +36,16 @@ const Register =  ({ setUserName }) => {
             .email('Invalid email'),
 		password: yup.string()
             .required(),
-        // name: yup.string()
+        name: yup.string()
+             .required(),
+        //address: yup.string()
         //     .required(),
-        // address: yup.string()
+        //dob: yup.string()
         //     .required(),
-        // dob: yup.string()
-        //     .required(),
-        // nationality: yup.string()
-        //     .required(),
-        // gender: yup.string()
-        //     .required(),
+        nationality: yup.string()
+            .required(),
+        gender: yup.string()
+            .required(),
         // identificationNo: yup.string()
         //     .required(),
         // foodPreferences: yup.string()
@@ -58,11 +58,12 @@ const Register =  ({ setUserName }) => {
         //     .required(),
         // allergies: yup.string()
         //     .required(),
-        // occupation: yup.string()
-        //     .required(),
-        // qualifications: yup.string()
-        //     .required(),
+        occupation: yup.string()
+            .required(),
+        qualifications: yup.string()
+            .required(),
     });
+
 
     const submitRegister = () => {
         axios.post(`http://localhost:8080/candidate/register`, candidate)
