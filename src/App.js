@@ -9,7 +9,7 @@ import AdministratorRouter from './administrator/AdministratorRouter';
 import CandidateInformation from './candidate/CandidateInformation';
 import LogoutButton from './LogoutButton';
 import Register from './register/Register';
-import MissionForm from './MissionForm';
+import MissionForm from './mission/MissionForm';
 import MissionList from './mission/MissionList';
 import CoordinatorPage from './coordinator/CoordinatorPage';
 import MissionView from "./mission/MissionView";
