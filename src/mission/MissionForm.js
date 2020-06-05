@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Col, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
-import { ErrorMessage} from './common/Utils';
+import { ErrorMessage } from '../common/Utils';
 import axios from 'axios';
 import styled from 'styled-components';
 import * as yup from 'yup';
