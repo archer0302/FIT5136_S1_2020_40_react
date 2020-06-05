@@ -4,14 +4,11 @@ import LoginPage from './login/LoginPage';
 import { Media, Container } from 'react-bootstrap';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import CoordinatorRouter from './coordinator/CoordinatorRouter';
-import AdministratorRouter from './administrator/AdministratorRouter';
 import CandidateInformation from './candidate/CandidateInformation';
 import LogoutButton from './LogoutButton';
 import Register from './register/Register';
 import MissionForm from './mission/MissionForm';
 import MissionList from './mission/MissionList';
-import CoordinatorPage from './coordinator/CoordinatorPage';
 import MissionView from "./mission/MissionView";
 
 const AppContainer = styled(Container).attrs({
@@ -43,7 +40,7 @@ const App = () => {
       <AppContainer>
         <BrowserRouter>
           <AppIcon>
-              <img src={logo} width={100} height={100}/>
+              <img src={logo} width={100} height={100} alt="Mission to Mars"/>
               <h1>Mission to Mars</h1>
           </AppIcon>
           {
@@ -55,13 +52,11 @@ const App = () => {
             )
           }
           <Switch>
-            <CoordinatorRouter path="/coordinator" component={MissionList}/>
-            <AdministratorRouter path="/administrator" component={MissionList}/>
             <Route path="/mission" exact component={MissionList}/>
             <Route path="/register" render={(props) => <Register {...props} setUserName={setUserName}/>}/>
             <Route path="/candidate" render={(props) => <CandidateInformation {...props}/>}/>
             <Route path="/mission/new" render={(props) => <MissionForm {...props}/>}/>
-            <Route path="/mission/view" render={(props) => <MissionView {...props}/>}/>
+            <Route path="/mission/view/:id" render={(props) => <MissionView {...props} missionId={props.match.params.id}/>}/>
             <Route path="/mission/edit/:id" render={(props) => <MissionForm {...props} missionId={props.match.params.id}/>}/>
             <Route path="/" render={(props) => <LoginPage {...props} setUserName={setUserName}/>}/>
           </Switch>

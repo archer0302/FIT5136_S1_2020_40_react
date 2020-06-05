@@ -41,7 +41,11 @@ const LoginForm = ({role, setUserName}) => {
 					window.localStorage.setItem('id', res.data.id);
 					window.localStorage.setItem('userName', res.data.userName);
 					setUserName(res.data.userName);
-					history.push(`/${role}/`);
+					if (role === 'candidate') {
+						history.push(`/candidate/${res.data.id}`);
+					} else {
+						history.push(`/mission`);
+					}
 				})
 				.catch(function (error) {
 					console.log(error.response.data);

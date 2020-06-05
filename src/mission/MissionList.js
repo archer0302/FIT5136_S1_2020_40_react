@@ -34,14 +34,14 @@ const MissionList = () => {
       setMissionList(response.data);
     }
     fetchData();
-  }, []);
+  }, [id, role]);
 
   const deleteMission = (missionId) => {
     axios.delete(`http://localhost:8080/mission/${missionId}`)
         .then((res) => {
           setShowModal(false);
           setMissionList(
-            missionList.filter(mission => mission.id != missionId)
+            missionList.filter(mission => mission.id !== missionId)
           );
         })
         .catch(function (error) {
@@ -75,12 +75,11 @@ const MissionList = () => {
           { missionList.map(
             mission => 
               <tr key={mission.id}>
-                <td>{mission.id}</td>
+                <td><Link to={`/mission/view/${mission.id}`} style={{ marginRight: 10 }}>{mission.id}</Link></td>
                 <td>{mission.missionName}</td>
                 <td>{mission.shuttleId}</td>
                 <td></td>
                 <td style={{ textAlign: 'right' }}>
-                  <Link to={`/mission/view/${mission.id}`} style={{ marginRight: 10 }}><Button size="sm" variant="flat-success">View</Button></Link>
                   <Link to={`/mission/edit/${mission.id}`} style={{ marginRight: 10 }}><Button size="sm" variant="flat-primary">Edit</Button></Link>
                   <Button size="sm" variant="flat-danger" onClick={() => deleteConfirm(mission.id, mission.missionName)}>Delete</Button>
                 </td>
@@ -89,6 +88,7 @@ const MissionList = () => {
           }
         </tbody>
       </Table>
+      <Link to="/mission/new"><Button variant="flat-success">New Mission</Button></Link>
       <Modal show={showModal}>
         <Modal.Header closeButton>
           <Modal.Title>Confirm deletion</Modal.Title>
