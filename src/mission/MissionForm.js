@@ -245,12 +245,12 @@ const MissionForm =  ({ missionId }) => {
         </Form.Row>
         <h5 style={{marginBottom: '20px'}}>JOB(S)</h5>
           {
-            mission.jobs.map(
+            formik.values.jobs.map(
               (job, index) => 
               <Form.Row key={index}>
                 <Button size="sm" variant="flat-danger" onClick={() => {
                     setMission({
-                      ...mission,
+                      ...formik.values,
                       jobs: mission.jobs.filter((job, i) => i !== index),
                     });
                     if (job.id) {
@@ -278,6 +278,11 @@ const MissionForm =  ({ missionId }) => {
               </Form.Row>
             )
           }
+          <Form.Group>
+            <Button variant="flat-success" onClick={() => {
+              setMission({...formik.values, jobs: [...formik.values.jobs, {name: '', description: ''}]});
+            }}>Add Job</Button>
+          </Form.Group>
         {/** submit button */}
         <Button type="submit" variant="flat-primary">Submit</Button>
       </FormWrapper>

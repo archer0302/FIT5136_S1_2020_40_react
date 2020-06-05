@@ -88,6 +88,7 @@ const MissionList = () => {
           }
         </tbody>
       </Table>
+      <Link to="/mission/new"><Button variant="flat-success">New Mission</Button></Link>
       <Modal show={showModal}>
         <Modal.Header closeButton>
           <Modal.Title>Confirm deletion</Modal.Title>

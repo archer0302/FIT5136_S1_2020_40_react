@@ -47,7 +47,7 @@ const MissionView = ({ missionId }) => {
     return (
         <Wrapper>
             <Content>
-                <Link to="/mission/list">Back to mission list</Link>
+                <Link to="/mission">Back to mission list</Link>
                 <h2 style={{ textAlign: 'center',marginBottom: '20px' }}>MISSION PROFILE</h2>
                 <StyledTable>
                 <tr>
