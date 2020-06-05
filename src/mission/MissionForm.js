@@ -63,6 +63,34 @@ const MissionForm =  ({ missionId }) => {
 
   /** yup validation schema */
   const schema = yup.object({
+    missionName: yup.string()
+        .required(),
+    missionDescription: yup.string()
+        .required(),
+    name: yup.string()
+        .required(),
+    launchDate: yup.string()
+         .required(),
+    countryOfOrigin: yup.string()
+         .required(),
+    countryAllowed: yup.string()
+        .required(),
+    duration: yup.string()
+        .required(),
+    ageRange: yup.string()
+         .required(),
+    cargoRequirement: yup.string()
+         .required(),
+    cargoType: yup.string()
+         .required(),
+    cargoAvailable: yup.string()
+         .required(),
+    destination: yup.string()
+         .required(),
+    shuttleId: yup.string()
+         .required(),
+    coordinatorId: yup.string()
+        .required(),
       
   });
 
