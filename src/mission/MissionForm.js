@@ -42,7 +42,14 @@ const MissionForm =  ({ missionId }) => {
         description: ''
       }
     ],
-    deletedJobId: []
+    empRequirements: [
+      {
+        title: '',
+        numberOfEmployees: 0
+      }
+    ],
+    deletedJobId: [],
+    deletedEmpRequirementId: []
   });
 
   useEffect(() =>  {
@@ -50,10 +57,13 @@ const MissionForm =  ({ missionId }) => {
       console.log(missionId);
       const fetchData = async () => {
         const missionResponse = await axios.get(`http://localhost:8080/mission/${missionId}`);
-        const jobResponse = await axios.get(`http://localhost:8080/mission/job/${missionId}`);
+        const jobResponse = await axios.get(`http://localhost:8080/job/mission/${missionId}`);
+        const empRequirementResponse = await axios.get(`http://localhost:8080/empRequirement/mission/${missionId}`);
         const missionData = missionResponse.data;
         missionData.jobs = jobResponse.data;
+        missionData.empRequirements = empRequirementResponse.data;
         missionData.deletedJobId = [];
+        missionData.deletedEmpRequirementId =[];
         setMission(missionData);
         console.log(missionData);
       }
@@ -91,7 +101,6 @@ const MissionForm =  ({ missionId }) => {
          .required(),
     coordinatorId: yup.string()
         .required(),
-      
   });
 
   /** setup formik */
@@ -103,8 +112,6 @@ const MissionForm =  ({ missionId }) => {
     },
     /** actions when you click submit button */
     onSubmit: values => {
-      console.log(values.jobs);
-      console.log(values.deletedJobId);
       const url = missionId ? `http://localhost:8080/mission/${missionId}` : `http://localhost:8080/mission/insert`;
       axios.post(url, values)
         .then(res => {
@@ -272,45 +279,85 @@ const MissionForm =  ({ missionId }) => {
           </Form.Group>
         </Form.Row>
         <h5 style={{marginBottom: '20px'}}>JOB(S)</h5>
-          {
-            formik.values.jobs.map(
-              (job, index) => 
-              <Form.Row key={index}>
-                <Button size="sm" variant="flat-danger" onClick={() => {
-                    setMission({
-                      ...formik.values,
-                      jobs: mission.jobs.filter((job, i) => i !== index),
-                    });
-                    if (job.id) {
-                      mission.deletedJobId.push(job.id);
-                    }
-                  }}>x</Button>
-                <Form.Group as={Col}>
-                  <Form.Label>Job Name</Form.Label>
-                  <Form.Control
-                    name={`jobs[${index}].name`}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={job.name}
-                  />
-                </Form.Group>
-                <Form.Group as={Col}>
-                  <Form.Label>Job Description</Form.Label>
-                  <Form.Control
-                    name={`jobs[${index}].description`}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={job.description}
-                  />
-                </Form.Group>
-              </Form.Row>
-            )
-          }
-          <Form.Group>
-            <Button variant="flat-success" onClick={() => {
-              setMission({...formik.values, jobs: [...formik.values.jobs, {name: '', description: ''}]});
-            }}>Add Job</Button>
-          </Form.Group>
+        {
+          formik.values.jobs.map(
+            (job, index) => 
+            <Form.Row key={index}>
+              <Button size="sm" variant="flat-danger" onClick={() => {
+                  setMission({
+                    ...formik.values,
+                    jobs: mission.jobs.filter((job, i) => i !== index),
+                  });
+                  if (job.id) {
+                    mission.deletedJobId.push(job.id);
+                  }
+                }}>x</Button>
+              <Form.Group as={Col}>
+                <Form.Label>Job Name</Form.Label>
+                <Form.Control
+                  name={`jobs[${index}].name`}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={job.name}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Job Description</Form.Label>
+                <Form.Control
+                  name={`jobs[${index}].description`}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={job.description}
+                />
+              </Form.Group>
+            </Form.Row>
+          )
+        }
+        <Form.Group>
+          <Button variant="flat-success" onClick={() => {
+            setMission({...formik.values, jobs: [...formik.values.jobs, {name: '', description: ''}]});
+          }}>Add Job</Button>
+        </Form.Group>
+        <h5 style={{marginBottom: '20px'}}>EMPLOYEE REQUIREMENT(S)</h5>
+        {
+          formik.values.empRequirements.map(
+            (empRequirement, index) => 
+            <Form.Row key={index}>
+              <Button size="sm" variant="flat-danger" onClick={() => {
+                  setMission({
+                    ...formik.values,
+                    empRequirements: mission.empRequirements.filter((empRequirement, i) => i !== index),
+                  });
+                  if (empRequirement.id) {
+                    mission.deletedEmpRequirementId.push(empRequirement.id);
+                  }
+                }}>x</Button>
+              <Form.Group as={Col}>
+                <Form.Label>Job Name</Form.Label>
+                <Form.Control
+                  name={`jobs[${index}].name`}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={empRequirement.title}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Job Description</Form.Label>
+                <Form.Control
+                  name={`jobs[${index}].description`}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={empRequirement.numberOfEmployees}
+                />
+              </Form.Group>
+            </Form.Row>
+          )
+        }
+        <Form.Group>
+          <Button variant="flat-success" onClick={() => {
+            setMission({...formik.values, empRequirements: [...formik.values.empRequirements, {title: '', numberOfEmployees: ''}]});
+          }}>Add Employee Requirement</Button>
+        </Form.Group>
         {/** submit button */}
         <Button type="submit" variant="flat-primary">Submit</Button>
       </FormWrapper>
