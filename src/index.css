@@ -12,6 +12,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.badge-flat-warming {
+  background-color: #e39935;
+  color: #F4EEEB;
+  cursor: pointer
+}
 
 .btn-flat-white {
 	background-color: #F4EEEB;

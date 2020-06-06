@@ -19,12 +19,9 @@ const AppContainer = styled(Container).attrs({
 `;
 
 const AppIcon = styled(Media)`
-  padding: 30px;
+  padding-top: 30px;
   display: flex;
   flex-direction: column;
-  min-height: 200px;
-  height: 200px;
-  max-height: 300px;
   align-items: center;
 `;
 

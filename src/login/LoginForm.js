@@ -9,7 +9,9 @@ import styled from 'styled-components'
 
 const StyledForm = styled(Form)`
 	color: #5C3D47;
-	padding: 30px;
+	padding: 60px;
+	padding-top:80px;
+
 `;
 
 const LoginForm = ({role, setUserName}) => {

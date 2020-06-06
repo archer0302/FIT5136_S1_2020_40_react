@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Col, Button } from 'react-bootstrap';
+import { Form, Col, Button, Badge } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { ErrorMessage } from '../common/Utils';
 import axios from 'axios';
 import styled from 'styled-components';
 import * as yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
+import { BsXSquareFill } from "react-icons/bs";
 
 const FormWrapper = styled(Form)`
   width: 60%;
@@ -17,7 +18,19 @@ const FormWrapper = styled(Form)`
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin-bottom: 50px;
-`
+`;
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const DeleteButton = styled(BsXSquareFill)`
+  margin-top: 40px;
+  color: #C95B64;
+  cursor: pointer
+`;
 
 const MissionForm =  ({ missionId }) => {
   const history = useHistory();
@@ -132,7 +145,7 @@ const MissionForm =  ({ missionId }) => {
   return(
     <>
       <FormWrapper onSubmit={formik.handleSubmit}>
-        <Link to="/mission">Back to mission list</Link>
+        <Link to="/mission" style={{ color: '#3b2b30' }}> &lt; Back to mission list</Link>
         <h2 style={{marginBottom: '20px'}}>{missionId ? 'EDIT MISSION' : 'NEW MISSION'}</h2>
         <Form.Group controlId="formGridMissionName">
           <Form.Label>Mission Name</Form.Label>
@@ -264,7 +277,6 @@ const MissionForm =  ({ missionId }) => {
             <ErrorMessage>{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</ErrorMessage>
           </Form.Group>
         </Form.Row>
-
         <Form.Row>
           <Form.Group as={Col} controlId="formGridShuttleId">
             <Form.Label>Shuttle Id</Form.Label>
@@ -278,20 +290,17 @@ const MissionForm =  ({ missionId }) => {
             <ErrorMessage>{formik.errors.occupation && formik.touched.occupation && formik.errors.occupation}</ErrorMessage>
           </Form.Group>
         </Form.Row>
-        <h5 style={{marginBottom: '20px'}}>JOB(S)</h5>
+        <hr/>
+        <Wrapper>
+          <h5>Job(s)</h5>
+          <Badge variant="flat-warming" onClick={() => {
+            setMission({...formik.values, jobs: [...formik.values.jobs, {name: '', description: ''}]});
+          }}>+Add Job</Badge>
+        </Wrapper>
         {
           formik.values.jobs.map(
             (job, index) => 
             <Form.Row key={index}>
-              <Button size="sm" variant="flat-danger" onClick={() => {
-                  setMission({
-                    ...formik.values,
-                    jobs: mission.jobs.filter((job, i) => i !== index),
-                  });
-                  if (job.id) {
-                    mission.deletedJobId.push(job.id);
-                  }
-                }}>x</Button>
               <Form.Group as={Col}>
                 <Form.Label>Job Name</Form.Label>
                 <Form.Control
@@ -310,28 +319,29 @@ const MissionForm =  ({ missionId }) => {
                   value={job.description}
                 />
               </Form.Group>
+              <DeleteButton onClick={() => {
+                  setMission({
+                    ...formik.values,
+                    jobs: mission.jobs.filter((job, i) => i !== index),
+                  });
+                  if (job.id) {
+                    mission.deletedJobId.push(job.id);
+                  }
+                }}>x</DeleteButton>
             </Form.Row>
           )
         }
-        <Form.Group>
-          <Button variant="flat-success" onClick={() => {
-            setMission({...formik.values, jobs: [...formik.values.jobs, {name: '', description: ''}]});
-          }}>Add Job</Button>
-        </Form.Group>
-        <h5 style={{marginBottom: '20px'}}>EMPLOYEE REQUIREMENT(S)</h5>
+        <hr/>
+        <Wrapper>
+          <h5>Employee Requirement(s)</h5>
+          <Badge variant="flat-warming" onClick={() => {
+            setMission({...formik.values, empRequirements: [...formik.values.empRequirements, {title: '', numberOfEmployees: ''}]});
+          }}>+Add Employee Requirement</Badge>
+        </Wrapper>
         {
           formik.values.empRequirements.map(
             (empRequirement, index) => 
             <Form.Row key={index}>
-              <Button size="sm" variant="flat-danger" onClick={() => {
-                  setMission({
-                    ...formik.values,
-                    empRequirements: mission.empRequirements.filter((empRequirement, i) => i !== index),
-                  });
-                  if (empRequirement.id) {
-                    mission.deletedEmpRequirementId.push(empRequirement.id);
-                  }
-                }}>x</Button>
               <Form.Group as={Col}>
                 <Form.Label>Job Name</Form.Label>
                 <Form.Control
@@ -350,16 +360,20 @@ const MissionForm =  ({ missionId }) => {
                   value={empRequirement.numberOfEmployees}
                 />
               </Form.Group>
+              <DeleteButton onClick={() => {
+                  setMission({
+                    ...formik.values,
+                    empRequirements: mission.empRequirements.filter((empRequirement, i) => i !== index),
+                  });
+                  if (empRequirement.id) {
+                    mission.deletedEmpRequirementId.push(empRequirement.id);
+                  }
+                }}>x</DeleteButton>
             </Form.Row>
           )
         }
-        <Form.Group>
-          <Button variant="flat-success" onClick={() => {
-            setMission({...formik.values, empRequirements: [...formik.values.empRequirements, {title: '', numberOfEmployees: ''}]});
-          }}>Add Employee Requirement</Button>
-        </Form.Group>
         {/** submit button */}
-        <Button type="submit" variant="flat-primary">Submit</Button>
+        <Button style={{ marginTop: '20px' }} type="submit" variant="flat-primary">Submit</Button>
       </FormWrapper>
     </>
   )

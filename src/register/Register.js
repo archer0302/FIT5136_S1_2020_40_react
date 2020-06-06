@@ -117,7 +117,7 @@ const Register =  ({ setUserName }) => {
     return(
         <>
             <RegisterForm onSubmit={formik.handleSubmit}>
-                <Link to="/">Back to homepage</Link>
+                <Link to="/"> &lt; Back to homepage</Link>
                 <h3 style={{marginBottom: '20px'}}>Register as candidate</h3>
                 <Form.Row>
                     <Form.Group as={Col} controlId="formGridUsername">

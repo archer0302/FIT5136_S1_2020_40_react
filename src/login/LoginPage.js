@@ -9,9 +9,10 @@ const LoginTabs = styled(Tabs).attrs({
 	border-radius: 4px;
 	background: #3b2b30;
 	flex-direction: row;
-`;
-
+	`;
+	
 const LoginContent = styled(Col)`
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border-radius: 4px;
 	background-color: #F4EEEB;
 	padding: 0px;
