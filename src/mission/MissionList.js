@@ -74,10 +74,15 @@ const MissionList = () => {
         <tbody>
           { missionList.map(
             mission => 
-              <tr key={mission.id}>
+              <tr key={mission.id} style={{ textAlign: 'center' }}>
                 <td><Link to={`/mission/view/${mission.id}`} style={{ marginRight: 10 }}>{mission.id}</Link></td>
                 <td>{mission.missionName}</td>
-                <td>{mission.shuttleId}</td>
+                <td>
+                  {
+                    mission.shuttleId ? mission.shuttleId :
+                      role === 'administrator' ? <Button size="sm" variant="flat-success">Assign</Button> : 'Not assigned'
+                  }
+                </td>
                 <td></td>
                 <td style={{ textAlign: 'right' }}>
                   <Link to={`/mission/edit/${mission.id}`} style={{ marginRight: 10 }}><Button size="sm" variant="flat-primary">Edit</Button></Link>
