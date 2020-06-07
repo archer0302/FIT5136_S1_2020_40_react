@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import * as yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
 import { BsXSquareFill } from "react-icons/bs";
+import moment from 'moment';
 
 const FormWrapper = styled(Form)`
   width: 60%;
@@ -105,28 +106,37 @@ const MissionForm =  ({ missionId }) => {
     missionDescription: yup.string()
         .max(500, 'Too long. Maximum length is 500 character.')
         .required('Please enter Mission Description'),
-    name: yup.string()
-        .required(),
     launchDate: yup.string()
-         .required(),
+        .required('Please enter Launch Date')
+        .test(
+          'date-format',
+          'Invalid input. Date format must be dd/MM/YYYY',
+          value => {
+            return moment(value, 'DD/MM/YYYY', true).isValid();
+          },
+        ),
+    duration: yup.number()
+        .integer('Invalid input. Duration must be a integer.')
+        .positive('Invalid input. Duration must be positive.')
+        .required(),
     countryOfOrigin: yup.string()
-         .required(),
+        .required(),
     countryAllowed: yup.string()
         .required(),
-    duration: yup.string()
-        .required(),
     ageRange: yup.string()
-         .required(),
-    cargoRequirement: yup.string()
-         .required(),
+        .matches(/^\d+-\d+$/, 'Incorrect Age range format. Must be "age-age". ex: 24-50')
+        .required(),
     cargoType: yup.string()
-         .required(),
-    cargoAvailable: yup.string()
-         .required(),
+        .required(),
+    cargoRequirement: yup.string(),
+    cargoAvailable: yup.number()
+        .integer('Invalid input. Cargo Available must be a integer.')
+        .positive('Invalid input. Cargo Available must be positive.')
+        .required(),
     destination: yup.string()
-         .required(),
+        .required(),
     shuttleId: yup.string()
-         .required(),
+        .required(),
     coordinatorId: yup.string()
         .required(),
   });
@@ -185,47 +195,52 @@ const MissionForm =  ({ missionId }) => {
           />
           <ErrorMessage>{formik.errors.missionDescription && formik.touched.missionDescription && formik.errors.missionDescription}</ErrorMessage>
         </Form.Group>
-        <Form.Group controlId="formGridLaunchDate">
-          <Form.Label>Launch Date</Form.Label>
-          <Form.Control
-            name="launchDate"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.launchDate}
-          />
-          <ErrorMessage>{formik.errors.address && formik.touched.address && formik.errors.address}</ErrorMessage>
-        </Form.Group>
-        <Form.Group controlId="formGridCountryOfOrigin">
-          <Form.Label>Country Of Origin</Form.Label>
-          <Form.Control
-            name="countryOfOrigin"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.countryOfOrigin}
-          />
-          <ErrorMessage>{formik.errors.name && formik.touched.name && formik.errors.name}</ErrorMessage>
-        </Form.Group>
-        <Form.Group controlId="formGridCountryAllowed">
-          <Form.Label>Country Allowed</Form.Label>
-          <Form.Control
-            name="countryAllowed"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.countryAllowed}
-          />
-          <ErrorMessage>{formik.errors.dob && formik.touched.dob && formik.errors.dob}</ErrorMessage>
-        </Form.Group>
         <Form.Row>
+          <Form.Group as={Col} controlId="formGridLaunchDate">
+            <Form.Label>Launch Date*</Form.Label>
+            <Form.Control
+              name="launchDate"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.launchDate}
+            />
+            <ErrorMessage>{formik.errors.launchDate && formik.touched.launchDate && formik.errors.launchDate}</ErrorMessage>
+          </Form.Group>
           <Form.Group as={Col} controlId="formGridDuration">
-              <Form.Label>Duration</Form.Label>
+              <Form.Label>Duration (month)*</Form.Label>
               <Form.Control
                   name="duration"
+                  type="number"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.duration}
               />
-              <ErrorMessage>{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</ErrorMessage>
+              <ErrorMessage>{formik.errors.duration && formik.touched.duration && formik.errors.duration}</ErrorMessage>
           </Form.Group>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formGridCountryOfOrigin">
+            <Form.Label>Country Of Origin*</Form.Label>
+            <Form.Control
+              name="countryOfOrigin"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.countryOfOrigin}
+            />
+            <ErrorMessage>{formik.errors.countryOfOrigin && formik.touched.countryOfOrigin && formik.errors.countryOfOrigin}</ErrorMessage>
+          </Form.Group>
+          <Form.Group as={Col} controlId="formGridCountryAllowed">
+            <Form.Label>Country Allowed</Form.Label>
+            <Form.Control
+              name="countryAllowed"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.countryAllowed}
+            />
+            <ErrorMessage>{formik.errors.countryAllowed && formik.touched.countryAllowed && formik.errors.countryAllowed}</ErrorMessage>
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
           <Form.Group as={Col} controlId="formGridAgeRange">
             <Form.Label>Age Range</Form.Label>
             <Form.Control
@@ -234,10 +249,26 @@ const MissionForm =  ({ missionId }) => {
               onBlur={formik.handleBlur}
               value={formik.values.ageRange}
             />
-            <ErrorMessage>{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</ErrorMessage>
+            <ErrorMessage>{formik.errors.ageRange && formik.touched.ageRange && formik.errors.ageRange}</ErrorMessage>
           </Form.Group>
         </Form.Row>
         <Form.Row>
+          <Form.Group as={Col} controlId="formGridCargoType">
+            <Form.Label>Cargo Type</Form.Label>
+            <Form.Control
+              name="cargoType"
+              as="select"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+                value={formik.values.cargoType}
+            >
+              <option value="mission">For mission</option>
+              <option value="journey">For journey</option>
+              <option value="journeyAndMission">For mission and journey</option>
+              <option>Other</option>
+            </Form.Control>
+            <ErrorMessage>{formik.errors.cargoType && formik.touched.cargoType && formik.errors.cargoType}</ErrorMessage>
+          </Form.Group>
           <Form.Group as={Col} controlId="formGridCargoRequirement">
             <Form.Label>Cargo Requirement</Form.Label>
             <Form.Control
@@ -246,30 +277,20 @@ const MissionForm =  ({ missionId }) => {
               onBlur={formik.handleBlur}
               value={formik.values.cargoRequirement}
             />
-            <ErrorMessage>{formik.errors.allergies && formik.touched.allergies && formik.errors.allergies}</ErrorMessage>
-          </Form.Group>
-          <Form.Group as={Col} controlId="formGridCargoType">
-            <Form.Label>Identification Number(TFN/ABN)</Form.Label>
-            <Form.Control
-              name="cargoType"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-                value={formik.values.cargoType}
-            />
-            <ErrorMessage>{formik.errors.identificationNo && formik.touched.identificationNo && formik.errors.identificationNo}</ErrorMessage>
+            <ErrorMessage>{formik.errors.cargoRequirement && formik.touched.cargoRequirement && formik.errors.cargoRequirement}</ErrorMessage>
           </Form.Group>
         </Form.Row>
-
         <Form.Row>
           <Form.Group as={Col} controlId="formGridCargoAvailable">
             <Form.Label>Cargo Available</Form.Label>
             <Form.Control
               name="cargoAvailable"
+              type="number"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.cargoAvailable}
             />
-            <ErrorMessage>{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</ErrorMessage>
+            <ErrorMessage>{formik.errors.cargoAvailable && formik.touched.cargoAvailable && formik.errors.cargoAvailable}</ErrorMessage>
           </Form.Group>
 
           <Form.Group as={Col} controlId="formGridDestination">
@@ -285,7 +306,7 @@ const MissionForm =  ({ missionId }) => {
         </Form.Row>
         <Form.Row>
           <Form.Group as={Col} controlId="formGridShuttleId">
-            <Form.Label>Shuttle Id</Form.Label>
+            <Form.Label>Shuttle</Form.Label>
             <Form.Control
               name="shuttleId"
               onChange={formik.handleChange}
