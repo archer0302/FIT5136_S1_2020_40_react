@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Col, Button, Modal } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -19,12 +19,27 @@ const RegisterForm = styled(Form)`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `
 
-
-const Register =  ({ setUserName }) => {
+const CandidateForm =  () => {
     const history = useHistory();
-    const [candidate, setCandidate] = useState({});
+    const candidateId = window.localStorage.getItem("id");
     const [showConsent, setShowConsent] = useState(false);
-    // const [showMessage, setShowMessage] = useState(false);
+    const [candidate, setCandidate] = useState({
+        email: '',
+        password: '',
+        address: '',
+        name:'',
+        dob:'',
+        nationality:'',
+        gender:'',
+        identificationNo:'',
+        foodPreferences:'',
+        workExperience:'',
+        computerSkills:'',
+        languages:'',
+        allergies:'',
+        occupation:'',
+        qualifications:'',
+    });
 
     const displayConsent = () => setShowConsent(true);
     const closeConsent = () => setShowConsent(false);
@@ -38,42 +53,29 @@ const Register =  ({ setUserName }) => {
             .required(),
         name: yup.string()
              .required(),
-        //address: yup.string()
-        //     .required(),
-        //dob: yup.string()
-        //     .required(),
-        nationality: yup.string()
-            .required(),
-        gender: yup.string()
-            .required(),
-        // identificationNo: yup.string()
-        //     .required(),
-        // foodPreferences: yup.string()
-        //     .required(),
-        // workExperience: yup.string()
-        //     .required(),
-        // computerSkills: yup.string()
-        //     .required(),
-        // languages: yup.string()
-        //     .required(),
-        // allergies: yup.string()
-        //     .required(),
-        occupation: yup.string()
-            .required(),
-        qualifications: yup.string()
-            .required(),
     });
 
+    useEffect(() =>  {
+        if (candidateId) {
+                const fetchData = async () => {
+                const candidateResponse = await axios.get(`http://localhost:8080/candidate/${candidateId}`);
+                const candidateData = candidateResponse.data;
+                setCandidate(candidateData);
+            }
+            fetchData();
+        }
+    }, [candidateId]);
 
-    const submitRegister = () => {
-        axios.post(`http://localhost:8080/candidate/register`, candidate)
+    const submitForm = () => {
+        const url = candidateId ? `http://localhost:8080/candidate/${candidateId}` : `http://localhost:8080/candidate/register`;
+        axios.post(url, formik.values)
             .then(res => {
-                // if success then do...
-                console.log(res);
-                closeConsent();
-                window.localStorage.setItem('role', 'candidate');
-                window.localStorage.setItem('id', res.data.id);
-                window.localStorage.setItem('userName', res.data.name);
+                if (!candidateId) {
+                    closeConsent();
+                    window.localStorage.setItem('role', 'candidate');
+                    window.localStorage.setItem('id', res.data.id);
+                    window.localStorage.setItem('userName', res.data.name);
+                }
                 history.push(`/candidate`);
             })
             .catch(function (error) {
@@ -84,32 +86,20 @@ const Register =  ({ setUserName }) => {
 
     /** setup formik */
 	const formik = useFormik({
+        enableReinitialize: true,
         /** init value */
         initialValues: {
-            email: '',
-            password: '',
-            address: '',
-            name:'',
-            dob:'',
-            nationality:'',
-            gender:'',
-            identificationNo:'',
-            foodPreferences:'',
-            workExperience:'',
-            computerSkills:'',
-            languages:'',
-            allergies:'',
-            occupation:'',
-            qualifications:'',
+            ...candidate
         },
         /** actions when you click submit button */
         onSubmit: values => {
-            displayConsent();
-            setCandidate(values);
-            console.log('submit');
-            console.log(values);
+            if (candidateId) {
+                submitForm();
+            } else {
+                displayConsent();
             }
-            ,
+        }
+        ,
         /** validation schema */
         validationSchema: schema
       });
@@ -117,35 +107,43 @@ const Register =  ({ setUserName }) => {
     return(
         <>
             <RegisterForm onSubmit={formik.handleSubmit}>
-                <Link to="/"> &lt; Back to homepage</Link>
-                <h3 style={{marginBottom: '20px'}}>Register as candidate</h3>
-                <Form.Row>
-                    <Form.Group as={Col} controlId="formGridUsername">
-                        <Form.Label>Username(Email)*</Form.Label>
-                        {/** formik controlled column */}
-                        <Form.Control
-                            //type="email"
-                            name="email"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.email}
-                        />
-                        {/* Column for error messages */}
-                        <ErrorMessage>{formik.errors.email && formik.touched.email && formik.errors.email}</ErrorMessage>
-                    </Form.Group>
+                {
+                    candidateId ? (
+                        <Link to="/candidate"> &lt; Back to profile view</Link>
+                    ) : (
+                        <Link to="/"> &lt; Back to homepage</Link>
+                    )
+                }
+                <h3 style={{marginBottom: '20px'}}>{candidateId ? 'EDIT PROFILE' : 'REGISTER AS CANDIDATE'}</h3>
+                { !candidateId && (
+                    <Form.Row>
+                        <Form.Group as={Col} controlId="formGridUsername">
+                            <Form.Label>Username(Email)*</Form.Label>
+                            {/** formik controlled column */}
+                            <Form.Control
+                                //type="email"
+                                name="email"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.email}
+                            />
+                            {/* Column for error messages */}
+                            <ErrorMessage>{formik.errors.email && formik.touched.email && formik.errors.email}</ErrorMessage>
+                        </Form.Group>
 
-                    <Form.Group as={Col} controlId="formGridPassword">
-                        <Form.Label>Password*</Form.Label>
-                        <Form.Control
-                            type="password"
-                            name="password"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.password}
-                        />
-                        <ErrorMessage>{formik.errors.password && formik.touched.password && formik.errors.password}</ErrorMessage>
-                    </Form.Group>
-                </Form.Row>
+                        <Form.Group as={Col} controlId="formGridPassword">
+                            <Form.Label>Password*</Form.Label>
+                            <Form.Control
+                                type="password"
+                                name="password"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.password}
+                            />
+                            <ErrorMessage>{formik.errors.password && formik.touched.password && formik.errors.password}</ErrorMessage>
+                        </Form.Group>
+                    </Form.Row>
+                ) }
 
                 <Form.Group controlId="formGridName">
                     <Form.Label>Name*</Form.Label>
@@ -259,7 +257,6 @@ const Register =  ({ setUserName }) => {
                     <Form.Group as={Col} controlId="formGridFoodPreference">
                         <Form.Label>Food Preference</Form.Label>
                         <Form.Control
-                            //type="foodPreferences"
                             name="foodPreferences"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -269,10 +266,9 @@ const Register =  ({ setUserName }) => {
                     </Form.Group>
                 </Form.Row>
 
-                <Form.Group controlId="formGridddWorkExp">
+                <Form.Group controlId="formGridWorkExperience">
                     <Form.Label>Work Experience</Form.Label>
                     <Form.Control
-                        //type="workExperience"
                         name="workExperience"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -285,7 +281,6 @@ const Register =  ({ setUserName }) => {
                     <Form.Group as={Col} controlId="formGridOccupation">
                         <Form.Label>Occupation</Form.Label>
                         <Form.Control
-                            //type="occupation"
                             name="occupation"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -297,7 +292,6 @@ const Register =  ({ setUserName }) => {
                     <Form.Group as={Col} controlId="formGridFoodCSkill">
                         <Form.Label>Computer Skills</Form.Label>
                         <Form.Control
-                            //type="computerSkills"
                             name="computerSkills"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -311,7 +305,6 @@ const Register =  ({ setUserName }) => {
                 <Form.Group controlId="formGridLanguages">
                     <Form.Label>Languages Spoken</Form.Label>
                     <Form.Control
-                        //type="languages"
                         name="languages"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -320,23 +313,25 @@ const Register =  ({ setUserName }) => {
                     <ErrorMessage>{formik.errors.languages && formik.touched.languages && formik.errors.languages}</ErrorMessage>
                 </Form.Group>
                 {/** submit button */}
-                <Button type="submit" variant="flat-primary">Register</Button>
-                <Modal show={showConsent}>
-                    <Modal.Header>
-                    <Modal.Title>Authorisation Confirm</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>I confirm that....(Can not complete register if decline)</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="success" onClick={submitRegister}>
-                            Confirm
-                        </Button>
-                        <Button variant="danger" onClick={closeConsent}>
-                            Decline
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
+                <Button type="submit" variant="flat-primary">
+                    {candidateId ? 'Save' : 'Register'}
+                </Button>
             </RegisterForm>
+            <Modal show={showConsent}>
+                <Modal.Header>
+                <Modal.Title>Authorisation Confirm</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>I confirm that....(Can not complete register if decline)</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="success" onClick={submitForm}>
+                        Confirm
+                    </Button>
+                    <Button variant="danger" onClick={closeConsent}>
+                        Decline
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }
-export default Register;
+export default CandidateForm;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
     background-color: #3b2b30;
@@ -30,7 +31,7 @@ const StyledTable = styled.table`
     }
 `;
 
-const CandidateInformation = () => {
+const CandidateView = () => {
     const candidateId = window.localStorage.getItem("id");
 
     const [candidate, setCandidate] = useState({});
@@ -40,7 +41,6 @@ const CandidateInformation = () => {
         if (candidateId) {
             const fetchData = async () => {
                 const response = await axios.get(`http://localhost:8080/candidate/${candidateId}`);
-                console.log(response.data);
                 setCandidate(response.data);
             }
             fetchData();
@@ -89,11 +89,15 @@ const CandidateInformation = () => {
                     
                 </StyledTable>
                 <div style={{ display: 'flex', justifyContent: 'center'}}>
-                    <Button style={{width: '200px' }} type='button' variant="flat-white">Edit Profile</Button>
+                    <Link to="/candidate/edit">
+                        <Button style={{width: '200px' }} type='button' variant="flat-white">
+                                Edit Profile
+                        </Button>
+                    </Link>
                 </div>
             </Content>
         </Wrapper>
     )
 }
 
-export default CandidateInformation;
+export default CandidateView;

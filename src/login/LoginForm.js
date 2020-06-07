@@ -44,7 +44,7 @@ const LoginForm = ({role, setUserName}) => {
 					window.localStorage.setItem('userName', res.data.name);
 					setUserName(res.data.name);
 					if (role === 'candidate') {
-						history.push(`/candidate/${res.data.id}`);
+						history.push(`/candidate`);
 					} else {
 						history.push(`/mission`);
 					}

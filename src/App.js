@@ -4,9 +4,9 @@ import LoginPage from './login/LoginPage';
 import { Media, Container } from 'react-bootstrap';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import CandidateInformation from './candidate/CandidateInformation';
+import CandidateView from './candidate/CandidateView';
 import LogoutButton from './LogoutButton';
-import Register from './register/Register';
+import CandidateForm from './candidate/CandidateForm';
 import MissionForm from './mission/MissionForm';
 import MissionList from './mission/MissionList';
 import MissionView from "./mission/MissionView";
@@ -50,8 +50,9 @@ const App = () => {
           }
           <Switch>
             <Route path="/mission" exact component={MissionList}/>
-            <Route path="/register" render={(props) => <Register {...props} setUserName={setUserName}/>}/>
-            <Route path="/candidate" render={(props) => <CandidateInformation {...props}/>}/>
+            <Route path="/register" render={(props) => <CandidateForm {...props} setUserName={setUserName}/>}/>
+            <Route path="/candidate/edit" render={(props) => <CandidateForm {...props}/>}/>
+            <Route path="/candidate" render={(props) => <CandidateView {...props}/>}/>
             <Route path="/mission/new" render={(props) => <MissionForm {...props}/>}/>
             <Route path="/mission/view/:id" render={(props) => <MissionView {...props} missionId={props.match.params.id}/>}/>
             <Route path="/mission/edit/:id" render={(props) => <MissionForm {...props} missionId={props.match.params.id}/>}/>
