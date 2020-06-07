@@ -41,8 +41,8 @@ const LoginForm = ({role, setUserName}) => {
 				.then(res => {
 					window.localStorage.setItem('role', role);
 					window.localStorage.setItem('id', res.data.id);
-					window.localStorage.setItem('userName', res.data.userName);
-					setUserName(res.data.userName);
+					window.localStorage.setItem('userName', res.data.name);
+					setUserName(res.data.name);
 					if (role === 'candidate') {
 						history.push(`/candidate/${res.data.id}`);
 					} else {
