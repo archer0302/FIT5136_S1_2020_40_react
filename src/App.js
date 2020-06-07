@@ -5,7 +5,7 @@ import { Media, Container } from 'react-bootstrap';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import CandidateView from './candidate/CandidateView';
-import LogoutButton from './LogoutButton';
+import LogoutButton from './common/LogoutButton';
 import CandidateForm from './candidate/CandidateForm';
 import MissionForm from './mission/MissionForm';
 import MissionList from './mission/MissionList';

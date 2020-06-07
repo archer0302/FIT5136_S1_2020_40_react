@@ -23,15 +23,6 @@ const ShuttleList = ({ handleClose }) => {
     }
     fetchData();
 	}, [setShuttleList]);
-	
-	// const assignShuttle = (shuttleId) => {
-	// 	const url = `http://localhost:8080/mission/${mission.id}`;
-	// 	const saveAssign = async () => {
-	// 		axios.post(url, {...mission, shuttleId});
-	// 		setShow(false);
-  //   }
-	// 	saveAssign();
-	// }
 
 	return (
 		<TableWrapper>
