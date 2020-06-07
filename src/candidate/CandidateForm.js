@@ -148,7 +148,6 @@ const CandidateForm =  () => {
                 <Form.Group controlId="formGridName">
                     <Form.Label>Name*</Form.Label>
                     <Form.Control
-                        //type="name"
                         name="name"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -160,7 +159,6 @@ const CandidateForm =  () => {
                 <Form.Group controlId="formGridAddress">
                     <Form.Label>Address</Form.Label>
                     <Form.Control
-                        //type="address"
                         name="address"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -171,9 +169,8 @@ const CandidateForm =  () => {
                 </Form.Group>
 
                 <Form.Group controlId="formGridDob">
-                    <Form.Label>Address</Form.Label>
+                    <Form.Label>Date of birth</Form.Label>
                     <Form.Control
-                        //type="name"
                         name="dob"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -186,7 +183,6 @@ const CandidateForm =  () => {
                     <Form.Group as={Col} controlId="select your nationality">
                         <Form.Label>Nationality</Form.Label>
                             <Form.Control
-                                //type="name"
                                 name="nationality"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -203,7 +199,6 @@ const CandidateForm =  () => {
                     <Form.Group as={Col} controlId="select your gender">
                         <Form.Label>Gender</Form.Label>
                         <Form.Control
-                            //type="name"
                             name="gender"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -219,7 +214,6 @@ const CandidateForm =  () => {
                     <Form.Group as={Col} controlId="formGridAllergies">
                         <Form.Label>Allergies</Form.Label>
                         <Form.Control
-                            //type="email"
                             name="allergies"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -231,7 +225,6 @@ const CandidateForm =  () => {
                     <Form.Group as={Col} controlId="formGridIdNumber">
                         <Form.Label>Identification Number(TFN/ABN)</Form.Label>
                         <Form.Control
-                            //type="email"
                             name="identificationNo"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -245,7 +238,6 @@ const CandidateForm =  () => {
                     <Form.Group as={Col} controlId="formGridQualification">
                         <Form.Label>Qualifications</Form.Label>
                         <Form.Control
-                            //type="qualifications"
                             name="qualifications"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
