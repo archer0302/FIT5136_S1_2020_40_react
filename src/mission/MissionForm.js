@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Col, Button, Badge } from 'react-bootstrap';
+import { Form, Col, Button, Badge, Modal } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { ErrorMessage } from '../common/Utils';
 import axios from 'axios';
@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
 import { BsXSquareFill } from "react-icons/bs";
 import moment from 'moment';
+import ShuttleView from '../shuttle/ShuttleView';
 
 const FormWrapper = styled(Form)`
   width: 60%;
@@ -74,6 +75,7 @@ const MissionForm =  ({ missionId }) => {
     deletedEmpRequirementId: [],
     deletedCriteriaId: []
   });
+  const [showShuttleView, setShowShuttleView] = useState(false);
 
   useEffect(() =>  {
     if (missionId) {
@@ -304,18 +306,18 @@ const MissionForm =  ({ missionId }) => {
             <ErrorMessage>{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</ErrorMessage>
           </Form.Group>
         </Form.Row>
-        <Form.Row>
-          <Form.Group as={Col} controlId="formGridShuttleId">
-            <Form.Label>Shuttle</Form.Label>
-            <Form.Control
-              name="shuttleId"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.shuttleId}
-            />
-            <ErrorMessage>{formik.errors.occupation && formik.touched.occupation && formik.errors.occupation}</ErrorMessage>
-          </Form.Group>
-        </Form.Row>
+        {
+          mission.id && (
+            <Form.Row>
+              <Form.Group as={Col} controlId="formGridShuttleId">
+                <Form.Label>Shuttle</Form.Label>
+                <Link style={{marginLeft: '10px'}} onClick={() => setShowShuttleView(true)}>
+                  {mission.shuttleId}
+                </Link>
+              </Form.Group>
+            </Form.Row>
+          )
+        }
         <hr/>
         <Wrapper>
           <h5>Job(s)</h5>
@@ -462,6 +464,9 @@ const MissionForm =  ({ missionId }) => {
         {/** submit button */}
         <Button style={{ marginTop: '20px' }} type="submit" variant="flat-primary">Submit</Button>
       </FormWrapper>
+      <Modal show={showShuttleView} onHide={() => setShowShuttleView(false)}>
+        <ShuttleView shuttleId={mission.shuttleId} handleClose={() => setShowShuttleView(false)} />
+      </Modal>
     </>
   )
 }

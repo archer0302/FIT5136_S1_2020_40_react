@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Modal } from 'react-bootstrap';
+import ShuttleView from '../shuttle/ShuttleView';
 
 const Wrapper = styled.div`
     background-color: #3b2b30;
@@ -32,6 +34,7 @@ const StyledTable = styled.table`
 
 const MissionView = ({ missionId }) => {
     const [mission, setMission] = useState({});
+    const [showShuttleView, setShowShuttleView] = useState(false);
 
     useEffect(() =>  {
         if (missionId) {
@@ -84,7 +87,11 @@ const MissionView = ({ missionId }) => {
                     <td style={{fontWeight: 'bold'}}>Status</td>
                     <td>{mission.status}</td>
                     <td style={{fontWeight: 'bold'}}>Shuttle Id</td>
-                    <td>{mission.shuttleId}</td>
+                    <td>
+                        <Link onClick={() => setShowShuttleView(true)}>
+                            {mission.shuttleId}
+                        </Link>
+                    </td>
                 </tr>
                 <tr>
                     <td style={{fontWeight: 'bold'}}>mission Description</td>
@@ -92,6 +99,9 @@ const MissionView = ({ missionId }) => {
                 </tr>
             </StyledTable>
         </Content>
+        <Modal show={showShuttleView} onHide={() => setShowShuttleView(false)}>
+            <ShuttleView shuttleId={mission.shuttleId} handleClose={() => setShowShuttleView(false)} />
+        </Modal>
     </Wrapper>
     )
 }

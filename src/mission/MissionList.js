@@ -5,6 +5,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ShuttleList from '../shuttle/ShuttleList';
+import ShuttleView from '../shuttle/ShuttleView';
 
 const TableWrapper = styled.div`
   background-color: #F4EEEB;
@@ -20,7 +21,8 @@ const MissionList = () => {
   const [deleteMissionId, setDeleteMissionId] = useState();
   const [showModal, setShowModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
-  const [showShuttleModal, setShowShuttleModal] = useState(false);
+  const [showShuttleAssign, setShowShuttleAssign] = useState(false);
+  const [showShuttleView, setShowShuttleView] = useState(0);
   const [shuttleMissionIndex, setShuttleMissionIndex] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const role = window.localStorage.getItem("role");
@@ -61,12 +63,12 @@ const MissionList = () => {
     setShowModal(true);
   }
 
-  const handleShuttleModalClose = (shuttleId) => {
+  const handleShuttleAssignClose = (shuttleId) => {
     const shuttleMission = missionList[shuttleMissionIndex];
     const url = `http://localhost:8080/mission/${shuttleMission.id}`;
     axios.post(url, {...shuttleMission, shuttleId});
     shuttleMission.shuttleId = shuttleId;
-    setShowShuttleModal(false);
+    setShowShuttleAssign(false);
   }
 
   return (
@@ -91,11 +93,15 @@ const MissionList = () => {
                 <td>{mission.missionName}</td>
                 <td>
                   {
-                    mission.shuttleId ? mission.shuttleId :
+                    mission.shuttleId ? (
+                      <Link onClick={() => setShowShuttleView(mission.shuttleId)}>
+                        {mission.shuttleId}
+                      </Link>
+                    ) :
                       role === 'administrator' ? <Button size="sm" variant="flat-success" onClick={() => 
                         {
                           setShuttleMissionIndex(index);
-                          setShowShuttleModal(true);
+                          setShowShuttleAssign(true);
                         }
                       }>Assign</Button> : 'Not assigned'
                   }
@@ -127,8 +133,11 @@ const MissionList = () => {
       </Modal>
       <ErrorModal showModal={showErrorModal} setShowModal={setShowErrorModal} errorMessage={errorMessage} />
     </TableWrapper>
-    <Modal show={showShuttleModal} onHide={() => setShowShuttleModal(false)}>
-      <ShuttleList handleClose={handleShuttleModalClose} />
+    <Modal show={showShuttleAssign} onHide={() => setShowShuttleAssign(false)}>
+      <ShuttleList handleClose={handleShuttleAssignClose} />
+    </Modal>
+    <Modal show={showShuttleView} onHide={() => setShowShuttleView(0)}>
+      <ShuttleView shuttleId={showShuttleView} handleClose={() => setShowShuttleView(0)} />
     </Modal>
     </>
   )
