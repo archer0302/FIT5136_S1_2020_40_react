@@ -100,7 +100,7 @@ const MissionList = () => {
                       }>Assign</Button> : 'Not assigned'
                   }
                 </td>
-                <td></td>
+                <td>{mission.status}</td>
                 <td style={{ textAlign: 'right' }}>
                   <Link to={`/mission/edit/${mission.id}`} style={{ marginRight: 10 }}><Button size="sm" variant="flat-primary">Edit</Button></Link>
                   <Button size="sm" variant="flat-danger" onClick={() => deleteConfirm(mission.id, mission.missionName)}>Delete</Button>

@@ -34,6 +34,7 @@ const DeleteButton = styled(BsXSquareFill)`
 
 const MissionForm =  ({ missionId }) => {
   const history = useHistory();
+  const role = window.localStorage.getItem("role");
 
   const [mission, setMission] = useState({
     missionName: '',
@@ -61,8 +62,16 @@ const MissionForm =  ({ missionId }) => {
         numberOfEmployees: 0
       }
     ],
+    criteria: [
+      {
+        ageRange: '',
+        healthRecord: false,
+        crimeRecord: false
+      }
+    ],
     deletedJobId: [],
-    deletedEmpRequirementId: []
+    deletedEmpRequirementId: [],
+    deletedCriteriaId: []
   });
 
   useEffect(() =>  {
@@ -77,6 +86,11 @@ const MissionForm =  ({ missionId }) => {
         missionData.empRequirements = empRequirementResponse.data;
         missionData.deletedJobId = [];
         missionData.deletedEmpRequirementId =[];
+        if (role === 'administrator') {
+          const criteriaResponse = await axios.get(`http://localhost:8080/criteria/mission/${missionId}`);
+          missionData.criteria = criteriaResponse.data;
+          missionData.deletedCriteriaId = [];
+        }
         setMission(missionData);
         console.log(missionData);
       }
@@ -89,7 +103,8 @@ const MissionForm =  ({ missionId }) => {
     missionName: yup.string()
         .required(),
     missionDescription: yup.string()
-        .required(),
+        .max(500, 'Too long. Maximum length is 500 character.')
+        .required('Please enter Mission Description'),
     name: yup.string()
         .required(),
     launchDate: yup.string()
@@ -148,10 +163,9 @@ const MissionForm =  ({ missionId }) => {
         <Link to="/mission" style={{ color: '#3b2b30' }}> &lt; Back to mission list</Link>
         <h2 style={{marginBottom: '20px'}}>{missionId ? 'EDIT MISSION' : 'NEW MISSION'}</h2>
         <Form.Group controlId="formGridMissionName">
-          <Form.Label>Mission Name</Form.Label>
+          <Form.Label>Mission Name*</Form.Label>
           {/** formik controlled column */}
           <Form.Control
-            //type="email"
             name="missionName"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -161,19 +175,19 @@ const MissionForm =  ({ missionId }) => {
           <ErrorMessage>{formik.errors.email && formik.touched.email && formik.errors.email}</ErrorMessage>
         </Form.Group>
         <Form.Group controlId="formGridMissionDescription">
-          <Form.Label>Mission Description</Form.Label>
+          <Form.Label>Mission Description*</Form.Label>
           <Form.Control
             name="missionDescription"
+            as="textarea" rows="5"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.missionDescription}
           />
-          <ErrorMessage>{formik.errors.password && formik.touched.password && formik.errors.password}</ErrorMessage>
+          <ErrorMessage>{formik.errors.missionDescription && formik.touched.missionDescription && formik.errors.missionDescription}</ErrorMessage>
         </Form.Group>
         <Form.Group controlId="formGridLaunchDate">
           <Form.Label>Launch Date</Form.Label>
           <Form.Control
-            //type="launchDate"
             name="launchDate"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -184,7 +198,6 @@ const MissionForm =  ({ missionId }) => {
         <Form.Group controlId="formGridCountryOfOrigin">
           <Form.Label>Country Of Origin</Form.Label>
           <Form.Control
-            //type="countryOfOrigin"
             name="countryOfOrigin"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -195,7 +208,6 @@ const MissionForm =  ({ missionId }) => {
         <Form.Group controlId="formGridCountryAllowed">
           <Form.Label>Country Allowed</Form.Label>
           <Form.Control
-            //type="countryAllowed"
             name="countryAllowed"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -207,7 +219,6 @@ const MissionForm =  ({ missionId }) => {
           <Form.Group as={Col} controlId="formGridDuration">
               <Form.Label>Duration</Form.Label>
               <Form.Control
-                  //type="duration"
                   name="duration"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -218,7 +229,6 @@ const MissionForm =  ({ missionId }) => {
           <Form.Group as={Col} controlId="formGridAgeRange">
             <Form.Label>Age Range</Form.Label>
             <Form.Control
-              //type="ageRange"
               name="ageRange"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -231,7 +241,6 @@ const MissionForm =  ({ missionId }) => {
           <Form.Group as={Col} controlId="formGridCargoRequirement">
             <Form.Label>Cargo Requirement</Form.Label>
             <Form.Control
-              //type="cargoRequirement"
               name="cargoRequirement"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -242,7 +251,6 @@ const MissionForm =  ({ missionId }) => {
           <Form.Group as={Col} controlId="formGridCargoType">
             <Form.Label>Identification Number(TFN/ABN)</Form.Label>
             <Form.Control
-              //type="cargoType"
               name="cargoType"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -256,7 +264,6 @@ const MissionForm =  ({ missionId }) => {
           <Form.Group as={Col} controlId="formGridCargoAvailable">
             <Form.Label>Cargo Available</Form.Label>
             <Form.Control
-              //type="cargoAvailable"
               name="cargoAvailable"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -268,7 +275,6 @@ const MissionForm =  ({ missionId }) => {
           <Form.Group as={Col} controlId="formGridDestination">
             <Form.Label>Destination</Form.Label>
             <Form.Control
-              //type="destination"
               name="destination"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -281,7 +287,6 @@ const MissionForm =  ({ missionId }) => {
           <Form.Group as={Col} controlId="formGridShuttleId">
             <Form.Label>Shuttle Id</Form.Label>
             <Form.Control
-              //type="shuttleId"
               name="shuttleId"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -345,7 +350,7 @@ const MissionForm =  ({ missionId }) => {
               <Form.Group as={Col}>
                 <Form.Label>Job Name</Form.Label>
                 <Form.Control
-                  name={`jobs[${index}].name`}
+                  name={`empRequirements[${index}].title`}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={empRequirement.title}
@@ -354,7 +359,7 @@ const MissionForm =  ({ missionId }) => {
               <Form.Group as={Col}>
                 <Form.Label>Job Description</Form.Label>
                 <Form.Control
-                  name={`jobs[${index}].description`}
+                  name={`empRequirements[${index}].numberOfEmployees`}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={empRequirement.numberOfEmployees}
@@ -370,6 +375,67 @@ const MissionForm =  ({ missionId }) => {
                   }
                 }}>x</DeleteButton>
             </Form.Row>
+          )
+        }
+        {role === 'administrator' && (
+            <>
+              <Wrapper>
+              <h5>Criteria</h5>
+              <Badge variant="flat-warming" onClick={() => {
+                setMission({...formik.values, criteria: [...formik.values.criteria, { ageRange: '', healthRecord: false, crimeRecord: false }]});
+              }}>+Add Criteria</Badge>
+              </Wrapper>
+              {formik.values.criteria.map(
+                (criteria, index) => 
+                  <Form.Row key={index}>
+                    <Form.Group as={Col}>
+                      <Form.Label>Job Name</Form.Label>
+                      <Form.Control
+                        name={`criteria[${index}].ageRange`}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={criteria.ageRange}
+                      />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label>Health Record</Form.Label>
+                      <Form.Control
+                        name={`criteria[${index}].healthRecord`}
+                        as="select"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={criteria.healthRecord}
+                      >
+                        <option value={true}>Required</option>
+                        <option value={false}>Not required</option>
+                      </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label>Crime Record</Form.Label>
+                      <Form.Control
+                        name={`criteria[${index}].crimeRecord`}
+                        as="select"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={criteria.crimeRecord}
+                      >
+                        <option value={true}>Required</option>
+                        <option value={false}>Not required</option>
+                      </Form.Control>
+                    </Form.Group>
+                    <DeleteButton onClick={() => {
+                        setMission({
+                          ...formik.values,
+                          criteria: mission.criteria.filter((criteria, i) => i !== index),
+                        });
+                        if (criteria.id) {
+                          mission.deletedCriteriaId.push(criteria.id);
+                        }
+                      }}>x</DeleteButton>
+                  </Form.Row>
+                )
+              }
+            </>
           )
         }
         {/** submit button */}
