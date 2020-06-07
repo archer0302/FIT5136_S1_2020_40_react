@@ -49,13 +49,13 @@ const App = () => {
             )
           }
           <Switch>
+            <Route path="/mission/new" render={(props) => <MissionForm {...props}/>}/>
+            <Route path="/mission/view/:id" render={(props) => <MissionView {...props} missionId={props.match.params.id}/>}/>
+            <Route path="/mission/edit/:id" render={(props) => <MissionForm {...props} missionId={props.match.params.id}/>}/>
             <Route path="/mission" exact component={MissionList}/>
             <Route path="/register" render={(props) => <CandidateForm {...props} setUserName={setUserName}/>}/>
             <Route path="/candidate/edit" render={(props) => <CandidateForm {...props}/>}/>
             <Route path="/candidate" render={(props) => <CandidateView {...props}/>}/>
-            <Route path="/mission/new" render={(props) => <MissionForm {...props}/>}/>
-            <Route path="/mission/view/:id" render={(props) => <MissionView {...props} missionId={props.match.params.id}/>}/>
-            <Route path="/mission/edit/:id" render={(props) => <MissionForm {...props} missionId={props.match.params.id}/>}/>
             <Route path="/" render={(props) => <LoginPage {...props} setUserName={setUserName}/>}/>
           </Switch>
         </BrowserRouter>

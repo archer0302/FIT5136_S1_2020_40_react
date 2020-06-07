@@ -37,6 +37,7 @@ const DeleteButton = styled(BsXSquareFill)`
 const MissionForm =  ({ missionId }) => {
   const history = useHistory();
   const role = window.localStorage.getItem("role");
+  const coordinatorId = window.localStorage.getItem("id");
 
   const [mission, setMission] = useState({
     missionName: '',
@@ -51,33 +52,26 @@ const MissionForm =  ({ missionId }) => {
     cargoAvailable:'',
     destination:'',
     shuttleId:'',
-    coordinatorId:'',
-    jobs: [
-      {
-        name: '',
-        description: ''
-      }
-    ],
-    empRequirements: [
-      {
-        title: '',
-        numberOfEmployees: 0
-      }
-    ],
-    criteria: [
-      {
-        ageRange: '',
-        healthRecord: false,
-        crimeRecord: false
-      }
-    ],
+    status: '',
+    coordinatorId: coordinatorId,
+    jobs: [],
+    empRequirements: [],
+    criteria: [],
     deletedJobId: [],
     deletedEmpRequirementId: [],
     deletedCriteriaId: []
   });
   const [showShuttleView, setShowShuttleView] = useState(false);
+  const [coordinatorName, setCoordinatorName] = useState('');
+  const [coordinatorEmail, setCoordinatorEmail] = useState('');
 
   useEffect(() =>  {
+    axios.get(`http://localhost:8080/coordinator/${coordinatorId}`)
+      .then(response => {
+        setCoordinatorName(response.data.name);
+        setCoordinatorEmail(response.data.email);
+      });
+    
     if (missionId) {
       console.log(missionId);
       const fetchData = async () => {
@@ -123,23 +117,13 @@ const MissionForm =  ({ missionId }) => {
         .required(),
     countryOfOrigin: yup.string()
         .required(),
-    countryAllowed: yup.string()
-        .required(),
     ageRange: yup.string()
         .matches(/^\d+-\d+$/, 'Incorrect Age range format. Must be "age-age". ex: 24-50')
         .required(),
-    cargoType: yup.string()
-        .required(),
-    cargoRequirement: yup.string(),
     cargoAvailable: yup.number()
         .integer('Invalid input. Cargo Available must be a integer.')
-        .positive('Invalid input. Cargo Available must be positive.')
-        .required(),
+        .positive('Invalid input. Cargo Available must be positive.'),
     destination: yup.string()
-        .required(),
-    shuttleId: yup.string()
-        .required(),
-    coordinatorId: yup.string()
         .required(),
   });
 
@@ -152,6 +136,7 @@ const MissionForm =  ({ missionId }) => {
     },
     /** actions when you click submit button */
     onSubmit: values => {
+      console.log(values);
       const url = missionId ? `http://localhost:8080/mission/${missionId}` : `http://localhost:8080/mission/insert`;
       axios.post(url, values)
         .then(res => {
@@ -174,18 +159,45 @@ const MissionForm =  ({ missionId }) => {
       <FormWrapper onSubmit={formik.handleSubmit}>
         <Link to="/mission" style={{ color: '#3b2b30' }}> &lt; Back to mission list</Link>
         <h2 style={{marginBottom: '20px'}}>{missionId ? 'EDIT MISSION' : 'NEW MISSION'}</h2>
-        <Form.Group controlId="formGridMissionName">
-          <Form.Label>Mission Name*</Form.Label>
-          {/** formik controlled column */}
-          <Form.Control
-            name="missionName"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.missionName}
-          />
-          {/* Column for error messages */}
-          <ErrorMessage>{formik.errors.email && formik.touched.email && formik.errors.email}</ErrorMessage>
-        </Form.Group>
+        <Form.Row>
+          <Form.Group as={Col}>
+            <Form.Label>Coordinator Name</Form.Label><br/><strong>{coordinatorName}</strong>
+          </Form.Group>
+          <Form.Group as={Col}>
+            <Form.Label>Coordinator Email</Form.Label><br/><strong>{coordinatorEmail}</strong>
+          </Form.Group>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formGridMissionName">
+            <Form.Label>Mission Name*</Form.Label>
+            {/** formik controlled column */}
+            <Form.Control
+              name="missionName"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.missionName}
+            />
+            {/* Column for error messages */}
+            <ErrorMessage>{formik.errors.missionName && formik.touched.missionName && formik.errors.missionName}</ErrorMessage>
+          </Form.Group>
+          <Form.Group as={Col} controlId="formGridMissionName">
+            <Form.Label>Mission Status*</Form.Label>
+            <Form.Control
+              as="select"
+              name="status"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.status}
+            >
+              <option>Planning Phase</option>
+              <option>Departed Earth</option>
+              <option>Landed on Mars</option>
+              <option>Mission in progress</option>
+              <option>Returned to Earth</option>
+              <option>Mission completed</option>
+            </Form.Control>
+          </Form.Group>
+        </Form.Row>
         <Form.Group controlId="formGridMissionDescription">
           <Form.Label>Mission Description*</Form.Label>
           <Form.Control
@@ -244,7 +256,7 @@ const MissionForm =  ({ missionId }) => {
         </Form.Row>
         <Form.Row>
           <Form.Group as={Col} controlId="formGridAgeRange">
-            <Form.Label>Age Range</Form.Label>
+            <Form.Label>Age Range*</Form.Label>
             <Form.Control
               name="ageRange"
               onChange={formik.handleChange}
@@ -264,6 +276,7 @@ const MissionForm =  ({ missionId }) => {
               onBlur={formik.handleBlur}
                 value={formik.values.cargoType}
             >
+              <option value="">Please select</option>
               <option value="mission">For mission</option>
               <option value="journey">For journey</option>
               <option value="journeyAndMission">For mission and journey</option>
@@ -303,7 +316,7 @@ const MissionForm =  ({ missionId }) => {
               onBlur={formik.handleBlur}
               value={formik.values.destination}
             />
-            <ErrorMessage>{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</ErrorMessage>
+            <ErrorMessage>{formik.errors.destination && formik.touched.destination && formik.errors.destination}</ErrorMessage>
           </Form.Group>
         </Form.Row>
         {
@@ -363,7 +376,7 @@ const MissionForm =  ({ missionId }) => {
         <Wrapper>
           <h5>Employee Requirement(s)</h5>
           <Badge variant="flat-warming" onClick={() => {
-            setMission({...formik.values, empRequirements: [...formik.values.empRequirements, {title: '', numberOfEmployees: ''}]});
+            setMission({...formik.values, empRequirements: [...formik.values.empRequirements, {title: '', numberOfEmployees: 0}]});
           }}>+Add Employee Requirement</Badge>
         </Wrapper>
         {
@@ -380,9 +393,10 @@ const MissionForm =  ({ missionId }) => {
                 />
               </Form.Group>
               <Form.Group as={Col}>
-                <Form.Label>Job Description</Form.Label>
+                <Form.Label>Number of Employees</Form.Label>
                 <Form.Control
                   name={`empRequirements[${index}].numberOfEmployees`}
+                  type="number"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={empRequirement.numberOfEmployees}
@@ -462,7 +476,7 @@ const MissionForm =  ({ missionId }) => {
           )
         }
         {/** submit button */}
-        <Button style={{ marginTop: '20px' }} type="submit" variant="flat-primary">Submit</Button>
+        <Button style={{ marginTop: '20px' }} type="submit" variant="flat-primary">Save</Button>
       </FormWrapper>
       <Modal show={showShuttleView} onHide={() => setShowShuttleView(false)}>
         <ShuttleView shuttleId={mission.shuttleId} handleClose={() => setShowShuttleView(false)} />

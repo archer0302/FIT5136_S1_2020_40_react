@@ -24,10 +24,10 @@ const LoginForm = ({role, setUserName}) => {
 	/** yup validation schema */ 
 	const schema = yup.object({
 		email: yup.string()
-				.required()
+				.required('Please enter email')
 				.email('Invalid email'),
 		password: yup.string()
-				.required()
+				.required('Please enter password')
 	});
 
 	/** setup formik */

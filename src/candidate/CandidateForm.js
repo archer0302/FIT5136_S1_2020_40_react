@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ErrorMessage } from '../common/Utils';
+import moment from 'moment';
 
 const RegisterForm = styled(Form)`
   width: 60%;
@@ -47,12 +48,22 @@ const CandidateForm =  () => {
 	/** yup validation schema */ 
 	const schema = yup.object({
         email: yup.string()
-            .required()
+            .required('Please enter email')
             .email('Invalid email'),
-		password: yup.string()
-            .required(),
+        password: yup.string()
+            .required('Please enter password')
+            .min(8, 'Password too short. Need at least 8 characters.'),
         name: yup.string()
-             .required(),
+            .required(),
+        dob: yup.string()
+            .required('Please enter Date of Birth')
+            .test(
+                'date-format',
+                'Invalid input. Date format must be dd/MM/YYYY',
+                value => moment(value, 'DD/MM/YYYY', true).isValid(),
+            ),
+        workExperience: yup.number()
+            .positive('Invalid input. Work experience must be positive.'),
     });
 
     useEffect(() =>  {
@@ -118,7 +129,7 @@ const CandidateForm =  () => {
                 { !candidateId && (
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridUsername">
-                            <Form.Label>Username(Email)*</Form.Label>
+                            <Form.Label>Email*</Form.Label>
                             {/** formik controlled column */}
                             <Form.Control
                                 //type="email"
@@ -165,39 +176,32 @@ const CandidateForm =  () => {
                         value={formik.values.address}
                     />
                     <ErrorMessage>{formik.errors.address && formik.touched.address && formik.errors.address}</ErrorMessage>
-
                 </Form.Group>
 
-                <Form.Group controlId="formGridDob">
-                    <Form.Label>Date of birth</Form.Label>
+                <Form.Group controlId="formGridIdNumber">
+                    <Form.Label>Identification Number(TFN/ABN)</Form.Label>
                     <Form.Control
-                        name="dob"
+                        name="identificationNo"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.dob}
+                        value={formik.values.identificationNo}
                     />
-                    <ErrorMessage>{formik.errors.dob && formik.touched.dob && formik.errors.dob}</ErrorMessage>
+                    <ErrorMessage>{formik.errors.identificationNo && formik.touched.identificationNo && formik.errors.identificationNo}</ErrorMessage>
                 </Form.Group>
 
                 <Form.Row>
-                    <Form.Group as={Col} controlId="select your nationality">
-                        <Form.Label>Nationality</Form.Label>
-                            <Form.Control
-                                name="nationality"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.nationality}
-                                as="select">
-                            <option>Australian</option>
-                            <option>Chinese</option>
-                            <option>England</option>
-                            <option>American</option>
-                            <option>French</option>
-                        </Form.Control>
+                    <Form.Group as={Col} controlId="formGridDob">
+                        <Form.Label>Date of birth*</Form.Label>
+                        <Form.Control
+                            name="dob"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.dob}
+                        />
+                        <ErrorMessage>{formik.errors.dob && formik.touched.dob && formik.errors.dob}</ErrorMessage>
                     </Form.Group>
-
                     <Form.Group as={Col} controlId="select your gender">
-                        <Form.Label>Gender</Form.Label>
+                        <Form.Label>Gender*</Form.Label>
                         <Form.Control
                             name="gender"
                             onChange={formik.handleChange}
@@ -211,6 +215,39 @@ const CandidateForm =  () => {
                 </Form.Row>
 
                 <Form.Row>
+                    <Form.Group as={Col} controlId="select your nationality">
+                        <Form.Label>Nationality</Form.Label>
+                            <Form.Control
+                                name="nationality"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.nationality}
+                            >
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formGridLanguages">
+                        <Form.Label>Languages Spoken</Form.Label>
+                        <Form.Control
+                            name="languages"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.languages}
+                        />
+                        <ErrorMessage>{formik.errors.languages && formik.touched.languages && formik.errors.languages}</ErrorMessage>
+                    </Form.Group>
+                </Form.Row>
+
+                <Form.Row>
+                    <Form.Group as={Col} controlId="formGridFoodPreference">
+                        <Form.Label>Food Preference</Form.Label>
+                        <Form.Control
+                            name="foodPreferences"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.foodPreferences}
+                        />
+                        <ErrorMessage>{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</ErrorMessage>
+                    </Form.Group>
                     <Form.Group as={Col} controlId="formGridAllergies">
                         <Form.Label>Allergies</Form.Label>
                         <Form.Control
@@ -221,16 +258,29 @@ const CandidateForm =  () => {
                         />
                         <ErrorMessage>{formik.errors.allergies && formik.touched.allergies && formik.errors.allergies}</ErrorMessage>
                     </Form.Group>
+                </Form.Row>
 
-                    <Form.Group as={Col} controlId="formGridIdNumber">
-                        <Form.Label>Identification Number(TFN/ABN)</Form.Label>
+                <Form.Row>
+                    <Form.Group as={Col} controlId="formGridOccupation">
+                        <Form.Label>Occupation</Form.Label>
                         <Form.Control
-                            name="identificationNo"
+                            name="occupation"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.identificationNo}
+                            value={formik.values.occupation}
                         />
-                        <ErrorMessage>{formik.errors.identificationNo && formik.touched.identificationNo && formik.errors.identificationNo}</ErrorMessage>
+                        <ErrorMessage>{formik.errors.occupation && formik.touched.occupation && formik.errors.occupation}</ErrorMessage>
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="formGridWorkExperience">
+                        <Form.Label>Work Experience (years)</Form.Label>
+                        <Form.Control
+                            name="workExperience"
+                            type="number"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.workExperience}
+                        />
+                        <ErrorMessage>{formik.errors.workExperience && formik.touched.workExperience && formik.errors.workExperience}</ErrorMessage>
                     </Form.Group>
                 </Form.Row>
 
@@ -245,44 +295,8 @@ const CandidateForm =  () => {
                         />
                         <ErrorMessage>{formik.errors.qualifications && formik.touched.qualifications && formik.errors.qualifications}</ErrorMessage>
                     </Form.Group>
-
-                    <Form.Group as={Col} controlId="formGridFoodPreference">
-                        <Form.Label>Food Preference</Form.Label>
-                        <Form.Control
-                            name="foodPreferences"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.foodPreferences}
-                        />
-                        <ErrorMessage>{formik.errors.foodPreferences && formik.touched.foodPreferences && formik.errors.foodPreferences}</ErrorMessage>
-                    </Form.Group>
-                </Form.Row>
-
-                <Form.Group controlId="formGridWorkExperience">
-                    <Form.Label>Work Experience</Form.Label>
-                    <Form.Control
-                        name="workExperience"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.workExperience}
-                    />
-                    <ErrorMessage>{formik.errors.workExperience && formik.touched.workExperience && formik.errors.workExperience}</ErrorMessage>
-                </Form.Group>
-
-                <Form.Row>
-                    <Form.Group as={Col} controlId="formGridOccupation">
-                        <Form.Label>Occupation</Form.Label>
-                        <Form.Control
-                            name="occupation"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.occupation}
-                        />
-                        <ErrorMessage>{formik.errors.occupation && formik.touched.occupation && formik.errors.occupation}</ErrorMessage>
-                    </Form.Group>
-
                     <Form.Group as={Col} controlId="formGridFoodCSkill">
-                        <Form.Label>Computer Skills</Form.Label>
+                    <Form.Label>Computer Skills</Form.Label>
                         <Form.Control
                             name="computerSkills"
                             onChange={formik.handleChange}
@@ -292,18 +306,6 @@ const CandidateForm =  () => {
                         <ErrorMessage>{formik.errors.computerSkills && formik.touched.computerSkills && formik.errors.computerSkills}</ErrorMessage>
                     </Form.Group>
                 </Form.Row>
-
-                {/** change to text input */}
-                <Form.Group controlId="formGridLanguages">
-                    <Form.Label>Languages Spoken</Form.Label>
-                    <Form.Control
-                        name="languages"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.languages}
-                    />
-                    <ErrorMessage>{formik.errors.languages && formik.touched.languages && formik.errors.languages}</ErrorMessage>
-                </Form.Group>
                 {/** submit button */}
                 <Button type="submit" variant="flat-primary">
                     {candidateId ? 'Save' : 'Register'}
