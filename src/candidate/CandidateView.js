@@ -35,6 +35,7 @@ const CandidateView = () => {
   const candidateId = window.localStorage.getItem("id");
   const [candidate, setCandidate] = useState({});
 
+  /** Did when component first render */
   useEffect(() =>  {
     console.log(candidateId);
     if (candidateId) {

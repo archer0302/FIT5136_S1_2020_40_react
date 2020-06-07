@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import { ErrorMessage } from '../common/Utils';
 import moment from 'moment';
 
+// CSS styled component
+
 const RegisterForm = styled(Form)`
   width: 60%;
   margin: auto;
@@ -66,6 +68,7 @@ const CandidateForm =  () => {
       .positive('Invalid input. Work experience must be positive.'),
   });
 
+  /** Did when component first render */
   useEffect(() =>  {
     if (candidateId) {
         const fetchData = async () => {
@@ -77,6 +80,7 @@ const CandidateForm =  () => {
     }
   }, [candidateId]);
 
+  /** Submitting Form */
   const submitForm = () => {
     const url = candidateId ? `http://localhost:8080/candidate/${candidateId}` : `http://localhost:8080/candidate/register`;
     axios.post(url, formik.values)
@@ -95,7 +99,7 @@ const CandidateForm =  () => {
       });
   }
 
-    /** setup formik */
+  /** setup formik */
 	const formik = useFormik({
     enableReinitialize: true,
     /** init value */
