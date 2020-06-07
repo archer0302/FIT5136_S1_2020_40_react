@@ -382,36 +382,36 @@ const MissionForm =  ({ missionId }) => {
         {
           formik.values.empRequirements.map(
             (empRequirement, index) => 
-            <Form.Row key={index}>
-              <Form.Group as={Col}>
-                <Form.Label>Job Name</Form.Label>
-                <Form.Control
-                  name={`empRequirements[${index}].title`}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={empRequirement.title}
-                />
-              </Form.Group>
-              <Form.Group as={Col}>
-                <Form.Label>Number of Employees</Form.Label>
-                <Form.Control
-                  name={`empRequirements[${index}].numberOfEmployees`}
-                  type="number"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={empRequirement.numberOfEmployees}
-                />
-              </Form.Group>
-              <DeleteButton onClick={() => {
-                  setMission({
-                    ...formik.values,
-                    empRequirements: mission.empRequirements.filter((empRequirement, i) => i !== index),
-                  });
-                  if (empRequirement.id) {
-                    mission.deletedEmpRequirementId.push(empRequirement.id);
-                  }
-                }}>x</DeleteButton>
-            </Form.Row>
+              <Form.Row key={index}>
+                <Form.Group as={Col}>
+                  <Form.Label>Job Name</Form.Label>
+                  <Form.Control
+                    name={`empRequirements[${index}].title`}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={empRequirement.title}
+                  />
+                </Form.Group>
+                <Form.Group as={Col}>
+                  <Form.Label>Number of Employees</Form.Label>
+                  <Form.Control
+                    name={`empRequirements[${index}].numberOfEmployees`}
+                    type="number"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={empRequirement.numberOfEmployees}
+                  />
+                </Form.Group>
+                <DeleteButton onClick={() => {
+                    setMission({
+                      ...formik.values,
+                      empRequirements: mission.empRequirements.filter((empRequirement, i) => i !== index),
+                    });
+                    if (empRequirement.id) {
+                      mission.deletedEmpRequirementId.push(empRequirement.id);
+                    }
+                  }}>x</DeleteButton>
+              </Form.Row>
           )
         }
         {role === 'administrator' && (

@@ -21,11 +21,11 @@ const StyledTable = styled.table`
 	margin-top: 20px;
 	margin-bottom: 50px;
 	tr {
-			margin-right: 10px;
+		margin-right: 10px;
 	}
 	td {
-			width: 180px;
-			height: 40px;
+		width: 180px;
+		height: 40px;
 	}
 `;
 
@@ -48,26 +48,26 @@ const ShuttleView = ({ shuttleId }) => {
 				<h2 style={{ textAlign: 'center',marginBottom: '20px' }}>SHUTTLE PROFILE</h2>
 				<StyledTable>
 					<tr>
-							<td style={{fontWeight: 'bold'}}>Name</td>
-							<td>{shuttle.name}</td>
+						<td style={{fontWeight: 'bold'}}>Name</td>
+						<td>{shuttle.name}</td>
 					</tr>
 					<tr>
-							<td style={{fontWeight: 'bold'}}>Manufacture Year</td>
-							<td>{shuttle.manufactureYear}</td>
-							<td style={{fontWeight: 'bold'}}>Origin</td>
-							<td>{shuttle.origin}</td>
+						<td style={{fontWeight: 'bold'}}>Manufacture Year</td>
+						<td>{shuttle.manufactureYear}</td>
+						<td style={{fontWeight: 'bold'}}>Origin</td>
+						<td>{shuttle.origin}</td>
 					</tr>
 					<tr>
-							<td style={{fontWeight: 'bold'}}>Fuel Capacity</td>
-							<td>{shuttle.fuelCapacity}</td>
-							<td style={{fontWeight: 'bold'}}>Passenger Capacity</td>
-							<td>{shuttle.passengerCapacity}</td>
-							<td style={{fontWeight: 'bold'}}>Cargo Capacity</td>
-							<td>{shuttle.cargoCapacity}</td>
+						<td style={{fontWeight: 'bold'}}>Fuel Capacity</td>
+						<td>{shuttle.fuelCapacity}</td>
+						<td style={{fontWeight: 'bold'}}>Passenger Capacity</td>
+						<td>{shuttle.passengerCapacity}</td>
+						<td style={{fontWeight: 'bold'}}>Cargo Capacity</td>
+						<td>{shuttle.cargoCapacity}</td>
 					</tr>
 					<tr>
-							<td style={{fontWeight: 'bold'}}>Travel Speed</td>
-							<td>{shuttle.travelSpeed}</td>
+						<td style={{fontWeight: 'bold'}}>Travel Speed</td>
+						<td>{shuttle.travelSpeed}</td>
 					</tr>
 				</StyledTable>
 			</Content>
