@@ -426,7 +426,7 @@ const MissionForm =  ({ missionId }) => {
                 (criteria, index) => 
                   <Form.Row key={index}>
                     <Form.Group as={Col}>
-                      <Form.Label>Job Name</Form.Label>
+                      <Form.Label>Age Range</Form.Label>
                       <Form.Control
                         name={`criteria[${index}].ageRange`}
                         onChange={formik.handleChange}
